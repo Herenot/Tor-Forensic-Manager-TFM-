@@ -1,10 +1,10 @@
 from os import system
 import subprocess
-global whereIsInstalled
 # Clase en la que se llevarán a cabo las llamadas al sistema operativo
 # source es la ruta absoluta donde se encuentra el navegador
 # destination es la ruta absoluta donde se quieren almacenar las salidas
 class CallsSystem:
+    where_installed = "/home/francisco_javier/Desktop/pruebas/torbrowser"
     hash256_file = "/hashes256.txt"
     hashmd5_file = "/hashesmd5.txt"
     def is_installed_tor_and_where(self,function,type): #Le pueden pasar is or where
@@ -22,3 +22,13 @@ class CallsSystem:
         system("cp -rf "+source+" "+destination)
     def delete_file(self,file):
         system("rm -f "+file)
+    def get_directory(self):
+        return self.where_installed;
+    def get_update_info(self):
+        command = 'find {} -name updates.xml'.format(self.where_installed)
+        file = subprocess.getoutput([command])
+        return file
+    def files_downloaded(self):
+        directory = subprocess.getoutput(['find {} -name Downloads'.format(self.where_installed)])
+        downloaded_list = subprocess.getoutput('ls -lRah {}'.format(directory)); 
+        return downloaded_list

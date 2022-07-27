@@ -6,12 +6,15 @@ print('--------------------------');
 cs = CallsSystem()
 fe = FileExtractions()
 whereIsInstalled = "/home/francisco_javier/.local/share/torbrowser"
-destination="/home/francisco_javier/Desktop/pruebas"
-cs.calculate_hash256(whereIsInstalled,destination)
-cs.calculate_hashmd5(whereIsInstalled,destination)
-cs.copy_directory(whereIsInstalled,destination)
-sign256 = fe.obtain_hashes_sign(destination+"/hashes256.txt.asc")
-signmd5 = fe.obtain_hashes_sign(destination+"/hashesmd5.txt.asc")
-print(sign256)
-print('--------------------------');
-print(signmd5)
+#destination="/home/francisco_javier/Desktop/pruebas"
+#cs.calculate_hash256(whereIsInstalled,destination)
+#cs.calculate_hashmd5(whereIsInstalled,destination)
+#cs.copy_directory(whereIsInstalled,destination)
+#sign256 = fe.obtain_hashes_sign(destination+"/hashes256.txt.asc")
+#signmd5 = fe.obtain_hashes_sign(destination+"/hashesmd5.txt.asc")
+#print(sign256)
+#print('--------------------------');
+#print(signmd5)
+#print(cs.files_downloaded())
+#fe.open_images([ruta imagen])
+
