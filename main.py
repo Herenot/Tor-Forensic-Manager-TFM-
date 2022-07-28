@@ -1,10 +1,12 @@
 #Clase de prueba en la que se realizarán llamadas a otras clases
 from callsSystem import CallsSystem
 from fileExtractions import FileExtractions
+from webRelatedActions import WebRelatedActions
 print("Se está ejecutando el MAIN")
 print('--------------------------');
 cs = CallsSystem()
 fe = FileExtractions()
+wr = WebRelatedActions()
 whereIsInstalled = "/home/francisco_javier/.local/share/torbrowser"
 #destination="/home/francisco_javier/Desktop/pruebas"
 #cs.calculate_hash256(whereIsInstalled,destination)
@@ -20,3 +22,7 @@ whereIsInstalled = "/home/francisco_javier/.local/share/torbrowser"
 #fe.get_torrc_info([ruta])
 #fe.num_lines_in_file([ruta])
 #cs.update_pending()
+#print(cs.get_date())
+#print(cs.get_user())
+#wr.open_sqlViewer()
+#cs.open_directory()

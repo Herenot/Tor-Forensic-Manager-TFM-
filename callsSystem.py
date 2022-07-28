@@ -1,4 +1,5 @@
 from os import system
+import os
 import subprocess
 # Clase en la que se llevarán a cabo las llamadas al sistema operativo
 # source es la ruta absoluta donde se encuentra el navegador
@@ -48,3 +49,16 @@ class CallsSystem:
             version_file = subprocess.getoutput([self.find_element(self.where_installed,"update.version")])
             next_version = subprocess.getoutput('cat {}'.format(version_file))
         return next_version
+    def get_user(self):
+        return subprocess.getoutput('who')
+
+    def get_date(self):
+        return subprocess.getoutput('date')
+
+    #Función que permite abrir un directorio, se puede usar para abrir los archivos sql
+    def open_directory(self,path):
+        try:
+            os.startfile(path)
+        except:
+            subprocess.Popen(['xdg-open', path])
+    
