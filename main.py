@@ -17,4 +17,6 @@ whereIsInstalled = "/home/francisco_javier/.local/share/torbrowser"
 #print(signmd5)
 #print(cs.files_downloaded())
 #fe.open_images([ruta imagen])
-
+#fe.get_torrc_info([ruta])
+#fe.num_lines_in_file([ruta])
+#cs.update_pending()

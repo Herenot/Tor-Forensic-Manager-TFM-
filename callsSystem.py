@@ -10,25 +10,41 @@ class CallsSystem:
     def is_installed_tor_and_where(self,function,type): #Le pueden pasar is or where
        system("chmod +x shellScripts/scripts.sh")
        system("./shellScripts/scripts.sh "+ function + " " + type)
+
     def calculate_hash256(self,source,destination):
         self.delete_file(destination+self.hash256_file+".asc")
         system("find "+ source +"/ -type f -print0  | xargs -0 sha256sum > "+destination+self.hash256_file)
         system("gpg --clearsign "+destination+self.hash256_file)
     def calculate_hashmd5(self,source,destination):
+
         self.delete_file(destination+self.hashmd5_file+".asc")
         system("find "+ source +"/ -type f -print0  | xargs -0 md5sum > "+destination+self.hashmd5_file)
         system("gpg --clearsign "+destination+self.hashmd5_file)
+
     def copy_directory(self,source,destination):
         system("cp -rf "+source+" "+destination)
+
     def delete_file(self,file):
         system("rm -f "+file)
+
     def get_directory(self):
         return self.where_installed;
-    def get_update_info(self):
-        command = 'find {} -name updates.xml'.format(self.where_installed)
-        file = subprocess.getoutput([command])
-        return file
+
+    def find_element(self,directory,file):
+        return 'find {} -name {}'.format(directory,file)
+
+    def get_update_info_location(self):
+        return subprocess.getoutput([self.find_element(self.where_installed,"updates.xml")])
+
     def files_downloaded(self):
-        directory = subprocess.getoutput(['find {} -name Downloads'.format(self.where_installed)])
-        downloaded_list = subprocess.getoutput('ls -lRah {}'.format(directory)); 
-        return downloaded_list
+        directory = subprocess.getoutput([self.find_element(self.where_installed,"Downloads")])
+        return subprocess.getoutput('ls -lRah {}'.format(directory))
+
+    #Si no devuelve nada, entonces no hay actualización, si devuelve, si la hay
+    def update_pending(self):
+        next_version = None;
+        pending = subprocess.getoutput([self.find_element(self.where_installed,"active-updates.xml")])
+        if(pending != ""):
+            version_file = subprocess.getoutput([self.find_element(self.where_installed,"update.version")])
+            next_version = subprocess.getoutput('cat {}'.format(version_file))
+        return next_version
