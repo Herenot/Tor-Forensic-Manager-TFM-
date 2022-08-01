@@ -26,3 +26,6 @@ whereIsInstalled = "/home/francisco_javier/.local/share/torbrowser"
 #print(cs.get_user())
 #wr.open_sqlViewer()
 #cs.open_directory()
+#fe.get_nodes_info()
+print(wr.curl_nodes('050A1245EEC76B7438337BAAF19F4AB0666B375F'))
+print(wr.curl_nodes('37EB4C9361D2F80F279B949CB3CB41DA2F46A2FA'))

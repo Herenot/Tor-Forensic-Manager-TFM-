@@ -8,6 +8,7 @@ class CallsSystem:
     where_installed = "/home/francisco_javier/Desktop/pruebas/torbrowser"
     hash256_file = "/hashes256.txt"
     hashmd5_file = "/hashesmd5.txt"
+
     def is_installed_tor_and_where(self,function,type): #Le pueden pasar is or where
        system("chmod +x shellScripts/scripts.sh")
        system("./shellScripts/scripts.sh "+ function + " " + type)
@@ -16,8 +17,8 @@ class CallsSystem:
         self.delete_file(destination+self.hash256_file+".asc")
         system("find "+ source +"/ -type f -print0  | xargs -0 sha256sum > "+destination+self.hash256_file)
         system("gpg --clearsign "+destination+self.hash256_file)
-    def calculate_hashmd5(self,source,destination):
 
+    def calculate_hashmd5(self,source,destination):
         self.delete_file(destination+self.hashmd5_file+".asc")
         system("find "+ source +"/ -type f -print0  | xargs -0 md5sum > "+destination+self.hashmd5_file)
         system("gpg --clearsign "+destination+self.hashmd5_file)
@@ -61,4 +62,6 @@ class CallsSystem:
             os.startfile(path)
         except:
             subprocess.Popen(['xdg-open', path])
-    
+            
+    def mum_of_ocurrences(self,word,file):
+        return subprocess.getoutput('echo "'+word+'" | wc -l '+file);
