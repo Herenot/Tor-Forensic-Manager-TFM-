@@ -2,12 +2,14 @@
 from callsSystem import CallsSystem
 from fileExtractions import FileExtractions
 from webRelatedActions import WebRelatedActions
-print("Se está ejecutando el MAIN")
-print('--------------------------');
-cs = CallsSystem()
-fe = FileExtractions()
-wr = WebRelatedActions()
-whereIsInstalled = "/home/francisco_javier/.local/share/torbrowser"
+from PyQt5 import QtWidgets,uic
+import sys
+#print("Se está ejecutando el MAIN")
+#print('--------------------------');
+#cs = CallsSystem()
+#fe = FileExtractions()
+#wr = WebRelatedActions()
+#whereIsInstalled = "/home/francisco_javier/.local/share/torbrowser"
 #destination="/home/francisco_javier/Desktop/pruebas"
 #cs.calculate_hash256(whereIsInstalled,destination)
 #cs.calculate_hashmd5(whereIsInstalled,destination)
@@ -26,9 +28,9 @@ whereIsInstalled = "/home/francisco_javier/.local/share/torbrowser"
 #print(cs.get_user())
 #wr.open_sqlViewer()
 #cs.open_directory()
-array = fe.get_nodes_info()
-for i in range(len(array)):
-    print(wr.curl_nodes(array[i].id))
+#array = fe.get_nodes_info()
+#for i in range(len(array)):
+#    print(wr.curl_nodes(array[i].id))
 
 #print(wr.curl_nodes('3D5D6178C44537E3692853B344385F6572A55767'))
 #print('--------------------------------')
@@ -43,3 +45,11 @@ for i in range(len(array)):
 #print(wr.curl_nodes('69C9BFA0C228AFA0548A9FF9B7C8C229B6AA9FAC'))
 #print('--------------------------------')
 #print(wr.curl_nodes('050A1245EEC76B7438337BAAF19F4AB0666B375F'))
+
+class initiate:
+    def __init__(self):
+        app = QtWidgets.QApplication([])
+        self.ventana = uic.loadUi("./frontend/principal.ui")
+        self.ventana.show()
+        app.exec()
+initiate()
