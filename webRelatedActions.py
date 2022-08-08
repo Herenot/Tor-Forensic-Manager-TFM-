@@ -1,11 +1,15 @@
+from this import d
 import webbrowser
 import subprocess
 from bs4 import BeautifulSoup
 class WebRelatedActions:
-    def open_sqlViewer(self):
+    def open_sql_viewer(self):
         webbrowser.open('https://inloop.github.io/sqlite-viewer/')
 
-    def curl_nodes(self,fingerPrint):
+    def open_repository(self):
+        webbrowser.open('https://github.com/Herenot/Tor-Forensic-Manager-TFM-')
+
+    def curl_nodes(self,finger_print):
         elements =['Nickname','url','email','Exit Address','Observed Bandwidth','Consensus Weight','Last Restarted',
         'Country','First Seen','Fingerprint']
         # 37EB4C9361D2F80F279B949CB3CB41DA2F46A2FA --> Enlace caído
@@ -21,8 +25,8 @@ class WebRelatedActions:
         # <dt>Country</dt>
         # <dt>First Seen</dt>
         # <dt>Fingerprint</dt> ---> Es el parámetro
-        if(self.get_status_code(fingerPrint) == '200'):
-            petition =subprocess.getoutput('curl https://nusenu.github.io/OrNetStats/w/relay/'+fingerPrint+'.html')
+        if(self.get_status_code(finger_print) == '200'):
+            petition =subprocess.getoutput('curl https://nusenu.github.io/OrNetStats/w/relay/'+finger_print+'.html')
             soup = BeautifulSoup(petition,'lxml')
             data = []
             for i in range(len(elements)-3):
@@ -39,13 +43,13 @@ class WebRelatedActions:
             data.append(line.split('/></a>')[1].split('title="')[0].split('\n')[0])
             line = str(soup.find('dt', string=elements[8]).find_next_siblings('dd')[0])
             data.append(line.split('<a href=')[1].split('">')[1].split("</a></dd>")[0])
-            data.append(fingerPrint)
+            data.append(finger_print)
             return data
         else:
             return None
        
 
-    def get_status_code(self,fingerPrint):
-        output = subprocess.getoutput('curl -I https://nusenu.github.io/OrNetStats/w/relay/'+fingerPrint+'.html')
+    def get_status_code(self,finger_print):
+        output = subprocess.getoutput('curl -I https://nusenu.github.io/OrNetStats/w/relay/'+finger_print+'.html')
         output = output.split('HTTP/2')[1].split(' ')[1];
         return output

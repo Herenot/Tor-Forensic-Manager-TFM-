@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>763</width>
+    <width>764</width>
     <height>600</height>
    </rect>
   </property>
@@ -21,6 +21,13 @@
   </property>
   <property name="windowTitle">
    <string>TFM - Tor Forensic Manager</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../img/Logo.png</normaloff>../img/Logo.png</iconset>
+  </property>
+  <property name="toolTip">
+   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Show help&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(255, 255, 255);
@@ -67,7 +74,7 @@ selection-color: rgb(0, 0, 0);</string>
      <string>Version 1.0 Fco Javier 2022©</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="logoLabel">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -83,13 +90,32 @@ selection-color: rgb(0, 0, 0);</string>
      <pixmap>../img/Logo.png</pixmap>
     </property>
    </widget>
+   <widget class="QLabel" name="UEMLabel">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>490</y>
+      <width>111</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../img/UEM.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>763</width>
+     <width>764</width>
      <height>23</height>
     </rect>
    </property>
@@ -110,26 +136,25 @@ selection-color: rgb(0, 0, 0);</string>
      <string>Nodes Info</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menuHelp">
+   <widget class="QMenu" name="menuMore">
     <property name="title">
-     <string>Help</string>
+     <string>More</string>
     </property>
-   </widget>
-   <widget class="QMenu" name="menuGitHub_Repository">
-    <property name="title">
-     <string>GitHub Repository</string>
-    </property>
+    <addaction name="actionHelp"/>
+    <addaction name="actionGitHub_Repository"/>
    </widget>
    <addaction name="menuPrincipal"/>
    <addaction name="menuFile_Forensic"/>
    <addaction name="menuNodes_Info"/>
-   <addaction name="menuHelp"/>
-   <addaction name="menuGitHub_Repository"/>
+   <addaction name="menuMore"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionTor_information">
    <property name="text">
     <string>Tor information</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
    </property>
   </action>
   <action name="actionExit">
@@ -138,6 +163,22 @@ selection-color: rgb(0, 0, 0);</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>Help</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+H</string>
+   </property>
+  </action>
+  <action name="actionGitHub_Repository">
+   <property name="text">
+    <string>GitHub Repository</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
    </property>
   </action>
  </widget>

@@ -38,22 +38,23 @@ class FileExtractions:
     
     #Función que permite la visualización de información del usuario en el fichero torrc
     def get_torrc_info(self,file):
+        data_file = './data.txt'
         torrc = open(file,'r')
-        file_evidence = open('./data.txt','w')
+        file_evidence = open(data_file,'w')
         for line in torrc.readlines():
             started_with = re.findall("^#",line)
             if not started_with:
                 file_evidence.write(line)
         torrc.close()
         file_evidence.close()
-        with open('./data.txt') as f:
+        with open(data_file) as f:
             lines = [line.rstrip() for line in f]
-        self.cs.delete_file('./data.txt')
+        self.cs.delete_file(data_file)
         return lines
 
     def get_nodes_info(self):
-        fileNode = subprocess.getoutput([self.cs.find_element(self.cs.get_directory(),"state")])
-        state = open(fileNode,'r')
+        file_node = subprocess.getoutput([self.cs.find_element(self.cs.get_directory(),"state")])
+        state = open(file_node,'r')
         file_evidence = open('./nodes.txt','w')
         for line in state.readlines():
             started_with = re.findall("^#|^CircuitBuildTimeBin|^CircuitBuildAbandonedCount|^Dormant",line)

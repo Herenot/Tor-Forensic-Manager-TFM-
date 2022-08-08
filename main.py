@@ -47,9 +47,24 @@ import sys
 #print(wr.curl_nodes('050A1245EEC76B7438337BAAF19F4AB0666B375F'))
 
 class initiate:
+    cs = CallsSystem()
+    fe = FileExtractions()
+    wr = WebRelatedActions()
     def __init__(self):
         app = QtWidgets.QApplication([])
-        self.ventana = uic.loadUi("./frontend/principal.ui")
-        self.ventana.show()
+        self.main_window = uic.loadUi("./frontend/principal.ui")
+        self.main_window.actionExit.triggered.connect(self.action_exit)
+        self.main_window.actionHelp.triggered.connect(self.action_help)
+        self.main_window.actionGitHub_Repository.triggered.connect(self.action_GitHub)
+        self.main_window.show()
         app.exec()
+        #Al iniciar mostrar una ventana con el arbol de directorio donde copiar la carpeta
+    def action_exit(self):
+        sys.exit()
+    def action_help(self):
+       self.help = uic.loadUi("./frontend/helpWindow.ui")
+       self.help.readme_area.setText(self.cs.get_readme_file('./extraFiles/readme.txt'))
+       self.help.show()
+    def action_GitHub(self):
+        self.wr.open_repository()
 initiate()
