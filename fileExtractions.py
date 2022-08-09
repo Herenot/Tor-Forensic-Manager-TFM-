@@ -19,7 +19,7 @@ class FileExtractions:
 
     # Se obtiene tambi'en el hash de la actualización para verificar la veracidad de la misma
     def get_update_info(self):
-        update_file = self.cs.get_update_info()
+        update_file = self.cs.get_update_info_location()
         with open(update_file) as f:
             lines = [x.split() for x in f.read().split('xmlns="http://www.mozilla.org/2005/app-update"') if x]
         for i in range(11):
@@ -52,6 +52,26 @@ class FileExtractions:
         self.cs.delete_file(data_file)
         return lines
 
+    
+    def get_tor_directory(self):
+        data_file = './data.txt'
+        self.cs.where_is_tor()
+        find_output = open('./find_elements.txt','r') 
+        file_evidence = open(data_file,'w')
+        for line in find_output.readlines():
+            started_with = re.findall("^find:",line)
+            if not started_with:
+                file_evidence.write(line)
+        find_output.close()
+        file_evidence.close()
+        with open(data_file) as f:
+            lines = [line.rstrip() for line in f]
+        self.cs.delete_file(data_file)
+        self.cs.delete_file('./find_elements.txt')
+
+        return lines
+
+
     def get_nodes_info(self):
         file_node = subprocess.getoutput([self.cs.find_element(self.cs.get_directory(),"state")])
         state = open(file_node,'r')
@@ -80,7 +100,7 @@ class FileExtractions:
            # print(array_of_nodes[i-1].listed)
            # print(array_of_nodes[i-1].unlisted_since)
            # print('--------------------------------------')
-        self.last_modified_state_file = lines[20].split(' ')[1] + lines[20].split(' ')[2]
+        self.last_modified_state_file = lines[20].split(' ')[1] + ' ' + lines[20].split(' ')[2]
         self.cs.delete_file('./nodes.txt')
         return array_of_nodes
 

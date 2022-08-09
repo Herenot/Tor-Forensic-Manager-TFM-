@@ -10,37 +10,101 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>577</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>577</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="cursor">
+   <cursorShape>PointingHandCursor</cursorShape>
+  </property>
   <property name="windowTitle">
    <string>Help</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../img/Logo.png</normaloff>../img/Logo.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="readme_area">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
+   <property name="minimumSize">
+    <size>
+     <width>577</width>
+     <height>600</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>577</width>
+     <height>600</height>
+    </size>
+   </property>
+   <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>571</width>
-      <height>551</height>
+      <width>577</width>
+      <height>600</height>
      </rect>
     </property>
-    <property name="cursor">
-     <cursorShape>ArrowCursor</cursorShape>
+    <property name="minimumSize">
+     <size>
+      <width>577</width>
+      <height>600</height>
+     </size>
     </property>
-    <property name="toolTipDuration">
-     <number>1</number>
+    <property name="maximumSize">
+     <size>
+      <width>577</width>
+      <height>600</height>
+     </size>
+    </property>
+    <property name="cursor" stdset="0">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);</string>
     </property>
-    <property name="text">
-     <string/>
+    <property name="widgetResizable">
+     <bool>true</bool>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
     </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>575</width>
+       <height>598</height>
+      </rect>
+     </property>
+     <widget class="QWidget" name="verticalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>571</width>
+        <height>571</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout"/>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

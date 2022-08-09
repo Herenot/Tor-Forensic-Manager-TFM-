@@ -10,6 +10,18 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>764</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>764</width>
+    <height>600</height>
+   </size>
+  </property>
   <property name="font">
    <font>
     <weight>50</weight>
@@ -123,15 +135,22 @@ selection-color: rgb(0, 0, 0);</string>
     <property name="title">
      <string>Principal</string>
     </property>
-    <addaction name="actionTor_information"/>
+    <addaction name="actionTor_info"/>
+    <addaction name="actionTorrc"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuFile_Forensic">
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open files in SQLite Browser&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
     <property name="title">
      <string>File Forensic</string>
     </property>
    </widget>
    <widget class="QMenu" name="menuNodes_Info">
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Display node info&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
     <property name="title">
      <string>Nodes Info</string>
     </property>
@@ -149,14 +168,6 @@ selection-color: rgb(0, 0, 0);</string>
    <addaction name="menuMore"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionTor_information">
-   <property name="text">
-    <string>Tor information</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+I</string>
-   </property>
-  </action>
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
@@ -169,6 +180,9 @@ selection-color: rgb(0, 0, 0);</string>
    <property name="text">
     <string>Help</string>
    </property>
+   <property name="toolTip">
+    <string>Help</string>
+   </property>
    <property name="shortcut">
     <string>Ctrl+H</string>
    </property>
@@ -177,8 +191,31 @@ selection-color: rgb(0, 0, 0);</string>
    <property name="text">
     <string>GitHub Repository</string>
    </property>
+   <property name="toolTip">
+    <string>GitHub Repository</string>
+   </property>
    <property name="shortcut">
     <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="actionGeneral_Information">
+   <property name="text">
+    <string>General Information</string>
+   </property>
+  </action>
+  <action name="actionUpdate_Information">
+   <property name="text">
+    <string>Update Information</string>
+   </property>
+  </action>
+  <action name="actionTor_info">
+   <property name="text">
+    <string>Tor information</string>
+   </property>
+  </action>
+  <action name="actionTorrc">
+   <property name="text">
+    <string>Torrc File</string>
    </property>
   </action>
  </widget>

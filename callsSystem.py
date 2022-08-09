@@ -9,9 +9,11 @@ class CallsSystem:
     hash256_file = "/hashes256.txt"
     hashmd5_file = "/hashesmd5.txt"
 
-    def is_installed_tor_and_where(self,function,type): #Le pueden pasar is or where
-       system("chmod +x shellScripts/scripts.sh")
-       system("./shellScripts/scripts.sh "+ function + " " + type)
+    def where_is_tor(self): #Le pueden pasar is or where
+       return subprocess.getoutput([self.find_element_and_store_output('/',"tbb")])
+
+    def find_element_and_store_output(self,directory,file):
+        return 'find {} -name {} > ./find_elements.txt'.format(directory,file)
 
     def calculate_hash256(self,source,destination):
         self.delete_file(destination+self.hash256_file+".asc")
@@ -37,6 +39,9 @@ class CallsSystem:
 
     def get_update_info_location(self):
         return subprocess.getoutput([self.find_element(self.where_installed,"updates.xml")])
+    
+    def get_torrc_file(self,directory,file):
+        return subprocess.getoutput([self.find_element(directory,"torrc")])
 
     def files_downloaded(self):
         directory = subprocess.getoutput([self.find_element(self.where_installed,"Downloads")])
@@ -69,3 +74,7 @@ class CallsSystem:
             
     def mum_of_ocurrences(self,word,file):
         return subprocess.getoutput('echo "'+word+'" | wc -l '+file);
+
+    def get_size(self,file):
+         return subprocess.getoutput('du -sh '+file);
+        
