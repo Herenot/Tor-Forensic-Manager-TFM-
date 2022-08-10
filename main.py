@@ -52,41 +52,35 @@ class initiate:
     wr = WebRelatedActions()
     ubication = []
     node_info_array = []
+    #Constructor
     def __init__(self):
         self.ubication = self.fe.get_tor_directory()
         self.node_info_array = self.fe.get_nodes_info()
-        self.cs.calculate_hash256(self.ubication[0],'.')
-        self.cs.calculate_hashmd5(self.ubication[0],'.')
+        #self.cs.calculate_hash256(self.ubication[0],'.')
+        #self.cs.calculate_hashmd5(self.ubication[0],'.')
         app = QtWidgets.QApplication([])
         self.main_window = uic.loadUi("./frontend/principal.ui")
-        self.main_window.actionExit.triggered.connect(self.action_exit)
+        self.main_window.date_label.setText('Executed at: '+self.cs.get_date())
         self.main_window.actionTor_info.triggered.connect(self.tor_information)
         self.main_window.actionTorrc.triggered.connect(self.torrc_info)
+        self.main_window.actionExit.triggered.connect(self.action_exit)
+        self.main_window.actionManage_Files_Forensic.triggered.connect(self.manage_file_forensic)
+        self.main_window.actionOpen_Web_Viewer.triggered.connect(self.open_sql_viewer)
+        self.main_window.actionShow_Nodes_Info.triggered.connect(self.nodes_info_window)
         self.main_window.actionHelp.triggered.connect(self.action_help)
         self.main_window.actionGitHub_Repository.triggered.connect(self.action_GitHub)
         self.main_window.show()
         app.exec()
 
 
-        #Al iniciar mostrar una ventana con el arbol de directorio donde copiar la carpeta
+        #TODO:Al iniciar mostrar una ventana con el arbol de directorio donde copiar la carpeta
         #Iniciar el árbol de directorio
 
-    def action_exit(self):
-        sys.exit()
-
-    def action_help(self):
-       self.help = uic.loadUi("./frontend/helpWindow.ui")
-       #self.help.readme_label.setText(self.cs.get_readme_file('./extraFiles/readme.txt'))
-       #self.help.scrollArea.setWidget(self.help.readme_label)
-       self.help.show()
-
-    def action_GitHub(self):
-        self.wr.open_repository()
-        
-
+######## PRINCIPAL MENU ################
     def tor_information(self):
         self.info = uic.loadUi("./frontend/infoWindow.ui")
         information_array = self.fe.get_update_info()
+        
         
         size = self.cs.get_size(self.ubication[0])
         self.info.where_installed_label.setText('"'+self.ubication[0]+'"')
@@ -101,12 +95,51 @@ class initiate:
         self.info.hash_label2.setText(hash_value[slice(len(hash_value)//2, len(hash_value))])
         self.info.size_label.setText('"'+size.split('\t')[0]+'"')
         self.info.last_execution_label.setText('"'+self.fe.last_modified_state_file+'"')
+        self.info.open_directory_button.clicked.connect(self.open_tor_directory)
         self.info.show()
-
+    
     def torrc_info(self):
-        self.info = uic.loadUi("./frontend/torrcWindow.ui")
+        self.torrc_info = uic.loadUi("./frontend/torrcWindow.ui")
         torrc = self.cs.get_torrc_file(self.ubication[0],'torrc')
-        print(self.fe.get_torrc_info(torrc))
-        self.info.show()
-        
+        array_torrc = self.fe.get_torrc_info(torrc)
+        text = 'The content of the torrc file for user {} is shown in the following list: \n\n'.format(self.cs.get_user())
+        for i in range(1,len(array_torrc)):
+           text += "  "+str(i)+". "+array_torrc[i]+"\n\n"
+        self.torrc_info.torrc_label.setText(text)
+        self.torrc_info.show()
+
+    def action_exit(self):
+        sys.exit()
+
+
+######## FILE FORENSIC MENU ################
+    def manage_file_forensic(self):
+        self.management = uic.loadUi("./frontend/manageFiles.ui")
+        #TODO: OPERACIONES CON MANAGE
+        self.management.show()
+    def open_sql_viewer(self):
+        self.wr.open_sql_viewer()
+
+######## NODE INFO MENU ################
+    def nodes_info_window(self):
+        self.management = uic.loadUi("./frontend/nodesInfo.ui")
+        #TODO: OPERACIONES CON NODOS
+        self.management.show()
+
+
+######## MORE MENU ################       
+    def action_help(self):
+       self.help = uic.loadUi("./frontend/helpWindow.ui")
+       self.help.help_label.setText(self.cs.get_readme_file('./extraFiles/readme.txt'))
+       self.help.show()
+
+    def action_GitHub(self):
+        self.wr.open_repository()
+    
+
+######## AUXILIAR FUNTIONS ################     
+    def open_tor_directory(self):
+        self.cs.open_directory(self.ubication[0])
+
+#LAUNCH PROGRAM       
 initiate()

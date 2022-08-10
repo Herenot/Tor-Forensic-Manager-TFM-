@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>400</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>800</width>
-    <height>600</height>
+    <height>400</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -28,7 +28,48 @@
   <property name="styleSheet">
    <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>766</width>
+         <height>1218</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item alignment="Qt::AlignTop">
+         <widget class="QLabel" name="torrc_label">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          </property>
+          <property name="textInteractionFlags">
+           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>

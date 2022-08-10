@@ -89,21 +89,25 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>575</width>
-       <height>598</height>
+       <width>561</width>
+       <height>1218</height>
       </rect>
      </property>
-     <widget class="QWidget" name="verticalLayoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>571</width>
-        <height>571</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout"/>
-     </widget>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="help_label">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>1200</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
   </widget>

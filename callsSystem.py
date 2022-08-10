@@ -57,7 +57,8 @@ class CallsSystem:
         return next_version
 
     def get_user(self):
-        return subprocess.getoutput('who')
+        whois = subprocess.getoutput('who')
+        return whois.split(' ')[0] 
 
     def get_date(self):
         return subprocess.getoutput('date')

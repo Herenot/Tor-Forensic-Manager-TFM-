@@ -121,6 +121,30 @@ selection-color: rgb(0, 0, 0);</string>
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QLabel" name="date_label">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>510</y>
+      <width>300</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>300</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -146,6 +170,9 @@ selection-color: rgb(0, 0, 0);</string>
     <property name="title">
      <string>File Forensic</string>
     </property>
+    <addaction name="separator"/>
+    <addaction name="actionManage_Files_Forensic"/>
+    <addaction name="actionOpen_Web_Viewer"/>
    </widget>
    <widget class="QMenu" name="menuNodes_Info">
     <property name="toolTip">
@@ -154,6 +181,7 @@ selection-color: rgb(0, 0, 0);</string>
     <property name="title">
      <string>Nodes Info</string>
     </property>
+    <addaction name="actionShow_Nodes_Info"/>
    </widget>
    <widget class="QMenu" name="menuMore">
     <property name="title">
@@ -212,10 +240,40 @@ selection-color: rgb(0, 0, 0);</string>
    <property name="text">
     <string>Tor information</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
   </action>
   <action name="actionTorrc">
    <property name="text">
     <string>Torrc File</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="actionManage_Files_Forensic">
+   <property name="text">
+    <string>Manage</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
+   </property>
+  </action>
+  <action name="actionOpen_Web_Viewer">
+   <property name="text">
+    <string>Open Web Viewer</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
+   </property>
+  </action>
+  <action name="actionShow_Nodes_Info">
+   <property name="text">
+    <string>Show Nodes Info</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
    </property>
   </action>
  </widget>
