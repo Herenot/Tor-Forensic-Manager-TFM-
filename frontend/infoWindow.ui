@@ -342,7 +342,7 @@
     <item>
      <widget class="QPushButton" name="open_directory_button">
       <property name="text">
-       <string>Open Tor Directory</string>
+       <string>Open original Tor directory</string>
       </property>
      </widget>
     </item>

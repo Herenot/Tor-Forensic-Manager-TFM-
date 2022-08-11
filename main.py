@@ -1,19 +1,10 @@
 #Clase de prueba en la que se realizarán llamadas a otras clases
+from this import s
 from callsSystem import CallsSystem
 from fileExtractions import FileExtractions
 from webRelatedActions import WebRelatedActions
 from PyQt5 import QtWidgets,uic
 import sys
-#print("Se está ejecutando el MAIN")
-#print('--------------------------');
-#cs = CallsSystem()
-#fe = FileExtractions()
-#wr = WebRelatedActions()
-#whereIsInstalled = "/home/francisco_javier/.local/share/torbrowser"
-#destination="/home/francisco_javier/Desktop/pruebas"
-#cs.calculate_hash256(whereIsInstalled,destination)
-#cs.calculate_hashmd5(whereIsInstalled,destination)
-#cs.copy_directory(whereIsInstalled,destination)
 #sign256 = fe.obtain_hashes_sign(destination+"/hashes256.txt.asc")
 #signmd5 = fe.obtain_hashes_sign(destination+"/hashesmd5.txt.asc")
 #print(sign256)
@@ -50,16 +41,18 @@ class initiate:
     cs = CallsSystem()
     fe = FileExtractions()
     wr = WebRelatedActions()
+    copy_done = False
+    security_copy = ''
     ubication = []
     node_info_array = []
+
     #Constructor
     def __init__(self):
         self.ubication = self.fe.get_tor_directory()
         self.node_info_array = self.fe.get_nodes_info()
-        #self.cs.calculate_hash256(self.ubication[0],'.')
-        #self.cs.calculate_hashmd5(self.ubication[0],'.')
         app = QtWidgets.QApplication([])
         self.main_window = uic.loadUi("./frontend/principal.ui")
+        self.showDialog()
         self.main_window.date_label.setText('Executed at: '+self.cs.get_date())
         self.main_window.actionTor_info.triggered.connect(self.tor_information)
         self.main_window.actionTorrc.triggered.connect(self.torrc_info)
@@ -75,14 +68,38 @@ class initiate:
 
         #TODO:Al iniciar mostrar una ventana con el arbol de directorio donde copiar la carpeta
         #Iniciar el árbol de directorio
+    def showDialog(self):
+        text1 = ' To preserve the evidence of the equipment under\n investigation, it is important to make a copy.'
+        text2 = ' Canceling this operation could damage evidence\n and invalidate any judicial investigation.'
+        text3 = '----WARNING!----'
+        self.dialog = uic.loadUi("./frontend/initialDialogBox.ui")
+        self.dialog.info1_label.setText(text1)
+        self.dialog.info2_label.setText(text2)
+        self.dialog.info3_label.setText(text3)
+        self.dialog.cancel_button.clicked.connect(lambda:self.dialog.close())
+        self.dialog.okay_button.clicked.connect(self.make_security_copy)
+        self.dialog.show()
+           
+
+        #TODO: REVISAR QUE SI SE CIERRA LA PESTAÑA, SE CIERRE LA APP COMPLETA.
+    
+    def make_security_copy(self):
+        dir_path = str(QtWidgets.QFileDialog.getExistingDirectory(None, "Select destination directory"))
+        if(dir_path!=''):
+            self.cs.copy_directory(self.ubication[0],dir_path)
+            self.cs.calculate_hash256(self.ubication[0],dir_path)
+            self.cs.calculate_hashmd5(self.ubication[0],dir_path)
+            self.dialog.close()
+            self.security_copy = dir_path+'/tbb'
+            self.copy_done = True
+
 
 ######## PRINCIPAL MENU ################
     def tor_information(self):
+        work_directory = self.security_copy if(self.copy_done == True) else self.ubication[0]
         self.info = uic.loadUi("./frontend/infoWindow.ui")
         information_array = self.fe.get_update_info()
-        
-        
-        size = self.cs.get_size(self.ubication[0])
+        size = self.cs.get_size(work_directory)
         self.info.where_installed_label.setText('"'+self.ubication[0]+'"')
         self.info.name_label.setText(information_array[7].split("=")[1]+" "+information_array[8]+" "+information_array[9])
         self.info.actual_version_label.setText(information_array[4].split("=")[1])
@@ -99,8 +116,9 @@ class initiate:
         self.info.show()
     
     def torrc_info(self):
+        work_directory = self.security_copy if(self.copy_done == True) else self.ubication[0]
         self.torrc_info = uic.loadUi("./frontend/torrcWindow.ui")
-        torrc = self.cs.get_torrc_file(self.ubication[0],'torrc')
+        torrc = self.cs.get_torrc_file(work_directory,'torrc')
         array_torrc = self.fe.get_torrc_info(torrc)
         text = 'The content of the torrc file for user {} is shown in the following list: \n\n'.format(self.cs.get_user())
         for i in range(1,len(array_torrc)):
