@@ -4,6 +4,9 @@ from callsSystem import CallsSystem
 from fileExtractions import FileExtractions
 from webRelatedActions import WebRelatedActions
 from PyQt5 import QtWidgets,uic
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
 import sys
 #sign256 = fe.obtain_hashes_sign(destination+"/hashes256.txt.asc")
 #signmd5 = fe.obtain_hashes_sign(destination+"/hashesmd5.txt.asc")
@@ -135,13 +138,16 @@ class initiate:
         self.management = uic.loadUi("./frontend/manageFiles.ui")
         #TODO: OPERACIONES CON MANAGE
         self.management.show()
+
     def open_sql_viewer(self):
         self.wr.open_sql_viewer()
 
 ######## NODE INFO MENU ################
     def nodes_info_window(self):
         self.management = uic.loadUi("./frontend/nodesInfo.ui")
-        #TODO: OPERACIONES CON NODOS
+        self.column_config(self.management)
+        self.management.browser_button.clicked.connect(self.show_detailed_nodes)
+        self.load_data(self.management)
         self.management.show()
 
 
@@ -158,6 +164,43 @@ class initiate:
 ######## AUXILIAR FUNTIONS ################     
     def open_tor_directory(self):
         self.cs.open_directory(self.ubication[0])
+
+    def load_data(self,window):
+        nodes = []
+        for i in range(len(self.node_info_array)):
+            node ={'Nickname':self.node_info_array[i].nickname,'FingerPrint':self.node_info_array[i].id,'Sampled on':str(self.node_info_array[i].sampled_on),'Listed':str(self.node_info_array[i].listed),'Unlisted since':str(self.node_info_array[i].unlisted_since)}
+            nodes.append(node)
+        row = 0
+        window.table.setRowCount(len(nodes))
+        for n in nodes:
+            window.table.setItem(row,0,QtWidgets.QTableWidgetItem(n['Nickname']))
+            window.table.setItem(row,1,QtWidgets.QTableWidgetItem(n['FingerPrint']))
+            window.table.setItem(row,2,QtWidgets.QTableWidgetItem(n['Sampled on']))
+            window.table.setItem(row,3,QtWidgets.QTableWidgetItem(n['Listed']))
+            window.table.setItem(row,4,QtWidgets.QTableWidgetItem(n['Unlisted since']))
+            row+=1
+
+    def show_detailed_nodes(self):
+        info = self.wr.curl_nodes(self.management.browser.text())
+        if(info==None):
+            self.management.more_info_label.setStyleSheet("color: red")
+            self.management.more_info_label.setAlignment(Qt.AlignCenter)
+            self.management.more_info_label.setText('Error.No data available.')
+        else:
+            header_list = ['Nickname','URL','e-mail','Exit Address','Observed Bandwidth','Consensus Weight','Last Restarted',
+            'Country','First Seen','Fingerprint']
+            text=''
+            for i in range(0,len(info)-1):
+                text+=header_list[i]+'\n>> '+info[i]+'\n\n'
+            self.management.more_info_label.setText(text)
+
+    def column_config(self,object):
+        object.table.setColumnWidth(0,200)
+        object.table.setColumnWidth(1,400)
+        object.table.setColumnWidth(2,150)
+        object.table.setColumnWidth(3,150)
+        object.table.setColumnWidth(4,150)
+
 
 #LAUNCH PROGRAM       
 initiate()

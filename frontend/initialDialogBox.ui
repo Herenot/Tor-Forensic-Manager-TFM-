@@ -33,11 +33,17 @@
      <height>26</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu Mono</family>
+    </font>
+   </property>
    <property name="cursor">
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(239, 41, 41);
+selection-color: rgb(239, 41, 41);
 border-color: rgb(164, 0, 0);</string>
    </property>
    <property name="text">
@@ -53,11 +59,17 @@ border-color: rgb(164, 0, 0);</string>
      <height>26</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu Mono</family>
+    </font>
+   </property>
    <property name="cursor">
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(138, 226, 52);
+selection-color: rgb(138, 226, 52);
 border-color: rgb(78, 154, 6);</string>
    </property>
    <property name="text">
