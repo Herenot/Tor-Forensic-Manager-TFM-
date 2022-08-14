@@ -189,6 +189,7 @@ selection-color: rgb(0, 0, 0);</string>
     </property>
     <addaction name="actionHelp"/>
     <addaction name="actionGitHub_Repository"/>
+    <addaction name="actionMake_security_copy"/>
    </widget>
    <addaction name="menuPrincipal"/>
    <addaction name="menuFile_Forensic"/>
@@ -274,6 +275,14 @@ selection-color: rgb(0, 0, 0);</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionMake_security_copy">
+   <property name="text">
+    <string>Make security copy</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
  </widget>

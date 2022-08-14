@@ -5,9 +5,12 @@ import subprocess
 # source es la ruta absoluta donde se encuentra el navegador
 # destination es la ruta absoluta donde se quieren almacenar las salidas
 class CallsSystem:
-    where_installed = "/home/francisco_javier/Desktop/pruebas/torbrowser"
+    install_ubication = '.'
     hash256_file = "/hashes256.txt"
     hashmd5_file = "/hashesmd5.txt"
+
+    def set_ubication(self,ubication):
+        self.install_ubication = ubication
 
     def where_is_tor(self): #Le pueden pasar is or where
        return subprocess.getoutput([self.find_element_and_store_output('/',"tbb")])
@@ -32,27 +35,30 @@ class CallsSystem:
         system("rm -f "+file)
 
     def get_directory(self):
-        return self.where_installed;
+        return self.install_ubication
 
     def find_element(self,directory,file):
         return 'find {} -name {}'.format(directory,file)
 
     def get_update_info_location(self):
-        return subprocess.getoutput([self.find_element(self.where_installed,"updates.xml")])
+        return subprocess.getoutput([self.find_element(self.install_ubication,"updates.xml")])
     
     def get_torrc_file(self,directory,file):
         return subprocess.getoutput([self.find_element(directory,"torrc")])
 
+    def download_ubication(self):
+        return subprocess.getoutput([self.find_element(self.install_ubication,"Downloads")])
+
     def files_downloaded(self):
-        directory = subprocess.getoutput([self.find_element(self.where_installed,"Downloads")])
+        directory = subprocess.getoutput([self.find_element(self.install_ubication,"Downloads")])
         return subprocess.getoutput('ls -lRah {}'.format(directory))
 
     #Si no devuelve nada, entonces no hay actualización, si devuelve, si la hay
     def update_pending(self):
         next_version = None;
-        pending = subprocess.getoutput([self.find_element(self.where_installed,"active-updates.xml")])
+        pending = subprocess.getoutput([self.find_element(self.install_ubication,"active-updates.xml")])
         if(pending != ""):
-            version_file = subprocess.getoutput([self.find_element(self.where_installed,"update.version")])
+            version_file = subprocess.getoutput([self.find_element(self.install_ubication,"update.version")])
             next_version = subprocess.getoutput('cat {}'.format(version_file))
         return next_version
 

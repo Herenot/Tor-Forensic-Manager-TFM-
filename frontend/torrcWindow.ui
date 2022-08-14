@@ -32,6 +32,12 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QScrollArea" name="scrollArea">
+      <property name="font">
+       <font>
+        <family>Ubuntu Mono</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="widgetResizable">
        <bool>true</bool>
       </property>
@@ -40,8 +46,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>766</width>
-         <height>1218</height>
+         <width>780</width>
+         <height>334</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -52,6 +58,15 @@
             <width>0</width>
             <height>0</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Ubuntu Mono</family>
+            <pointsize>10</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
+           </font>
           </property>
           <property name="text">
            <string>TextLabel</string>

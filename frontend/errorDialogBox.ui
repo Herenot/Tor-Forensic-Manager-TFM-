@@ -16,7 +16,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Error ocurred</string>
+   <string>Oh no! :(</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(255, 255, 255);</string>
@@ -43,6 +43,7 @@
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(138, 226, 52);
+color: rgb(3, 57, 5);
 border-color: rgb(78, 154, 6);</string>
    </property>
    <property name="text">
@@ -71,17 +72,20 @@ border-color: rgb(78, 154, 6);</string>
   <widget class="QLabel" name="error_label">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>10</x>
      <y>130</y>
-     <width>111</width>
-     <height>18</height>
+     <width>391</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">color: rgb(255, 0, 0);</string>
    </property>
    <property name="text">
-    <string>Error Ocurred</string>
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>
