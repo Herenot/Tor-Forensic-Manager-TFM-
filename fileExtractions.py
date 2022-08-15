@@ -99,14 +99,7 @@ class FileExtractions:
            lines[i].split(' ')[4].split('=')[1],
            listed,unlisted_value)
            array_of_nodes.append(node)
-           # print(array_of_nodes[i-1].id)
-           # print(array_of_nodes[i-1].nickname)
-           # print(array_of_nodes[i-1].sampled_on)
-           # print(array_of_nodes[i-1].listed)
-           # print(array_of_nodes[i-1].unlisted_since)
-           # print('--------------------------------------')
-        self.last_modified_state_file = lines[20].split(' ')[1] + ' ' + lines[20].split(' ')[2]
-        print(self.last_modified_state_file)
+        self.last_modified_state_file = lines[len(lines)-3].split(' ')[1] + ' ' + lines[len(lines)-3].split(' ')[2]
         self.cs.delete_file(self.c_string.aux_nodes_file)
         return array_of_nodes
 

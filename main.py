@@ -76,23 +76,26 @@ class initiate:
     def tor_information(self):
         work_directory = self.security_copy if(self.copy_done == True) else self.ubication[0]
         self.info = uic.loadUi(self.c_string.info_window_dir)
-        information_array = self.fe.get_update_info()
-        size = self.cs.get_size(work_directory)
-        self.info.where_installed_label.setText('"'+self.ubication[0]+'"')
-        self.info.name_label.setText(information_array[7].split("=")[1]+" "+information_array[8]+" "+information_array[9])
-        self.info.actual_version_label.setText(information_array[4].split("=")[1])
-        self.info.install_date_label.setText(information_array[5].split("=")[1])
-        update_pending = self.c_string.update_yes + self.cs.update_pending() if self.cs.update_pending() != None else self.c_string.update_no
-        self.info.update_pending_label.setText(update_pending)
-        self.info.previous_version_label.setText(information_array[10].split("=")[1])
-        hash_value = information_array[11].split("=")[1]
-        self.info.hash_label1.setText(hash_value[slice(0,len(hash_value)//2)])
-        self.info.hash_label2.setText(hash_value[slice(len(hash_value)//2, len(hash_value))])
-        self.info.size_label.setText('"'+size.split('\t')[0]+'"')
-        self.info.last_execution_label.setText('"'+self.fe.last_modified_state_file+'"')
+        self.info.table.setColumnWidth(0,700)
+        self.load_tor_info_data(self.info,work_directory)
         self.info.open_directory_button.clicked.connect(self.open_tor_directory)
         self.info.open_download.clicked.connect(self.show_download_directory)
         self.info.show()
+
+    def load_tor_info_data(self,window,work_directory):
+        size = self.cs.get_size(work_directory)
+        information_array = self.fe.get_update_info()
+        update_pending = self.c_string.update_yes + self.cs.update_pending() if self.cs.update_pending() != None else self.c_string.update_no
+        node ={'Browser name':information_array[7].split("=")[1]+" "+information_array[8]+" "+information_array[9],'Browser version':information_array[4].split("=")[1],"Version's hash":information_array[11].split("=")[1],'Update pending':update_pending,'Previous version':information_array[10].split("=")[1],'Install date':information_array[5].split("=")[1],'Last executed':'"'+self.fe.last_modified_state_file+'"',"Tor's directory":'"'+self.ubication[0]+'"',"Tor's directory size":'"'+size.split('\t')[0]+'"'}
+        window.table.setItem(0,0,QtWidgets.QTableWidgetItem(node['Browser name']))
+        window.table.setItem(0,1,QtWidgets.QTableWidgetItem(node['Browser version']))
+        window.table.setItem(0,2,QtWidgets.QTableWidgetItem(node["Version's hash"]))
+        window.table.setItem(0,3,QtWidgets.QTableWidgetItem(node['Update pending']))
+        window.table.setItem(0,4,QtWidgets.QTableWidgetItem(node['Previous version']))
+        window.table.setItem(0,5,QtWidgets.QTableWidgetItem(node['Install date']))
+        window.table.setItem(0,6,QtWidgets.QTableWidgetItem(node['Last executed']))
+        window.table.setItem(0,7,QtWidgets.QTableWidgetItem(node["Tor's directory"]))
+        window.table.setItem(0,8,QtWidgets.QTableWidgetItem(node["Tor's directory size"]))
     
     def torrc_info(self):
         work_directory = self.security_copy if(self.copy_done == True) else self.ubication[0]
@@ -191,6 +194,13 @@ class initiate:
             self.management.more_info_label.setText(text)
 
     def column_config(self,object):
+        object.table.setColumnWidth(0,160)
+        object.table.setColumnWidth(1,290)
+        object.table.setColumnWidth(2,150)
+        object.table.setColumnWidth(3,50)
+        object.table.setColumnWidth(4,140)
+
+    def row_config(self,object):
         object.table.setColumnWidth(0,160)
         object.table.setColumnWidth(1,290)
         object.table.setColumnWidth(2,150)

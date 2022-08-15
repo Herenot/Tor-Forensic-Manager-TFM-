@@ -7,7 +7,7 @@ class Constant:
     dialog3 = '----WARNING!----'
     copy_title = 'Select destination directory'
     update_yes = 'Yes, '
-    update_no = 'No pending updates'
+    update_no = '"No pending updates"'
     torrc_user = 'The content of the torrc file for user {} is shown in the following list: \n\n'
     no_available_error = 'Error.No data available.'
     null_data = 'No available data'
