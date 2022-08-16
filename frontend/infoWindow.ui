@@ -106,19 +106,19 @@ border-color: rgb(78, 154, 6);</string>
      <rect>
       <x>30</x>
       <y>110</y>
-      <width>750</width>
-      <height>241</height>
+      <width>730</width>
+      <height>311</height>
      </rect>
     </property>
     <property name="minimumSize">
      <size>
-      <width>0</width>
-      <height>0</height>
+      <width>730</width>
+      <height>250</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>750</width>
+      <width>725</width>
       <height>16777215</height>
      </size>
     </property>
@@ -127,6 +127,15 @@ border-color: rgb(78, 154, 6);</string>
       <family>Ubuntu Mono</family>
       <pointsize>10</pointsize>
      </font>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
     </property>
     <attribute name="horizontalHeaderVisible">
      <bool>false</bool>
@@ -161,7 +170,18 @@ border-color: rgb(78, 154, 6);</string>
     </row>
     <row>
      <property name="text">
-      <string>Version's hash</string>
+      <string>Version's hash Part I</string>
+     </property>
+     <property name="font">
+      <font>
+       <family>Ubuntu Mono</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Version's hash Part II</string>
      </property>
      <property name="font">
       <font>
@@ -183,7 +203,7 @@ border-color: rgb(78, 154, 6);</string>
     </row>
     <row>
      <property name="text">
-      <string>Preious version</string>
+      <string>Previous version</string>
      </property>
      <property name="font">
       <font>
@@ -258,9 +278,9 @@ border-color: rgb(78, 154, 6);</string>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>33</x>
-      <y>8</y>
-      <width>741</width>
+      <x>30</x>
+      <y>50</y>
+      <width>751</width>
       <height>20</height>
      </rect>
     </property>
@@ -268,10 +288,15 @@ border-color: rgb(78, 154, 6);</string>
      <font>
       <family>Ubuntu Mono</family>
       <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
      <string>Below is shown a table with basic information about Tor Browser</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>

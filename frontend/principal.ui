@@ -24,8 +24,7 @@
   </property>
   <property name="font">
    <font>
-    <weight>50</weight>
-    <bold>false</bold>
+    <family>Ubuntu Mono</family>
    </font>
   </property>
   <property name="cursor">
@@ -36,7 +35,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../img/Logo.png</normaloff>../img/Logo.png</iconset>
+    <normaloff>../../../../.designer/img/Logo.png</normaloff>../../../../.designer/img/Logo.png</iconset>
   </property>
   <property name="toolTip">
    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Show help&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -58,6 +57,8 @@ selection-color: rgb(0, 0, 0);</string>
     </property>
     <property name="font">
      <font>
+      <family>Ubuntu Mono</family>
+      <pointsize>13</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -77,6 +78,7 @@ selection-color: rgb(0, 0, 0);</string>
     </property>
     <property name="font">
      <font>
+      <family>Ubuntu Mono</family>
       <pointsize>9</pointsize>
       <weight>50</weight>
       <bold>false</bold>
@@ -115,7 +117,7 @@ selection-color: rgb(0, 0, 0);</string>
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../img/UEM.png</pixmap>
+     <pixmap>../../../../.designer/img/UEM.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -138,6 +140,7 @@ selection-color: rgb(0, 0, 0);</string>
     </property>
     <property name="font">
      <font>
+      <family>Ubuntu Mono</family>
       <pointsize>9</pointsize>
      </font>
     </property>
@@ -190,6 +193,7 @@ selection-color: rgb(0, 0, 0);</string>
     <addaction name="actionHelp"/>
     <addaction name="actionGitHub_Repository"/>
     <addaction name="actionMake_security_copy"/>
+    <addaction name="actionOpen_security_copy"/>
    </widget>
    <addaction name="menuPrincipal"/>
    <addaction name="menuFile_Forensic"/>
@@ -200,6 +204,11 @@ selection-color: rgb(0, 0, 0);</string>
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu Mono</family>
+    </font>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
@@ -212,6 +221,11 @@ selection-color: rgb(0, 0, 0);</string>
    <property name="toolTip">
     <string>Help</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu Mono</family>
+    </font>
+   </property>
    <property name="shortcut">
     <string>Ctrl+H</string>
    </property>
@@ -222,6 +236,11 @@ selection-color: rgb(0, 0, 0);</string>
    </property>
    <property name="toolTip">
     <string>GitHub Repository</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu Mono</family>
+    </font>
    </property>
    <property name="shortcut">
     <string>Ctrl+G</string>
@@ -241,6 +260,11 @@ selection-color: rgb(0, 0, 0);</string>
    <property name="text">
     <string>Tor information</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu Mono</family>
+    </font>
+   </property>
    <property name="shortcut">
     <string>Ctrl+I</string>
    </property>
@@ -248,6 +272,11 @@ selection-color: rgb(0, 0, 0);</string>
   <action name="actionTorrc">
    <property name="text">
     <string>Torrc File</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu Mono</family>
+    </font>
    </property>
    <property name="shortcut">
     <string>Ctrl+T</string>
@@ -257,6 +286,11 @@ selection-color: rgb(0, 0, 0);</string>
    <property name="text">
     <string>Manage</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu Mono</family>
+    </font>
+   </property>
    <property name="shortcut">
     <string>Ctrl+M</string>
    </property>
@@ -264,6 +298,11 @@ selection-color: rgb(0, 0, 0);</string>
   <action name="actionOpen_Web_Viewer">
    <property name="text">
     <string>Open Web Viewer</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu Mono</family>
+    </font>
    </property>
    <property name="shortcut">
     <string>Ctrl+W</string>
@@ -273,6 +312,11 @@ selection-color: rgb(0, 0, 0);</string>
    <property name="text">
     <string>Show Nodes Info</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu Mono</family>
+    </font>
+   </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
    </property>
@@ -281,8 +325,26 @@ selection-color: rgb(0, 0, 0);</string>
    <property name="text">
     <string>Make security copy</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu Mono</family>
+    </font>
+   </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionOpen_security_copy">
+   <property name="text">
+    <string>Open security copy</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu Mono</family>
+    </font>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
    </property>
   </action>
  </widget>

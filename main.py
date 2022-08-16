@@ -28,7 +28,6 @@ class initiate:
         self.ubication = self.fe.get_tor_directory()
         self.fe.set_ubication(self.ubication[0])
         self.cs.set_ubication(self.ubication[0])
-        self.download_ubication = self.cs.download_ubication()
         self.node_info_array = self.fe.get_nodes_info()
         app = QtWidgets.QApplication([])
         self.main_window = uic.loadUi(self.c_string.ppal_ui_dir)
@@ -43,6 +42,7 @@ class initiate:
         self.main_window.actionHelp.triggered.connect(self.action_help)
         self.main_window.actionGitHub_Repository.triggered.connect(self.action_GitHub)
         self.main_window.actionMake_security_copy.triggered.connect(self.make_security_copy)
+        self.main_window.actionOpen_security_copy.triggered.connect(self.open_security_copy)
         self.main_window.show()
         app.exec()
 
@@ -57,21 +57,9 @@ class initiate:
         self.dialog.cancel_button.clicked.connect(lambda:self.dialog.close())
         self.dialog.okay_button.clicked.connect(self.make_security_copy)
         self.dialog.show()
-           
-
+        
         #TODO: REVISAR QUE SI SE CIERRA LA PESTAÑA, SE CIERRE LA APP COMPLETA.
     
-    def make_security_copy(self):
-        dir_path = str(QtWidgets.QFileDialog.getExistingDirectory(None,self.c_string.copy_title))
-        if(dir_path!=''):
-            self.cs.copy_directory(self.ubication[0],dir_path)
-            self.cs.calculate_hash256(self.ubication[0],dir_path)
-            self.cs.calculate_hashmd5(self.ubication[0],dir_path)
-            self.dialog.close()
-            self.security_copy = dir_path+'/tbb'
-            self.copy_done = True
-
-
 ######## PRINCIPAL MENU ################
     def tor_information(self):
         work_directory = self.security_copy if(self.copy_done == True) else self.ubication[0]
@@ -79,23 +67,27 @@ class initiate:
         self.info.table.setColumnWidth(0,700)
         self.load_tor_info_data(self.info,work_directory)
         self.info.open_directory_button.clicked.connect(self.open_tor_directory)
+        self.download_ubication = self.cs.download_ubication(work_directory)
         self.info.open_download.clicked.connect(self.show_download_directory)
         self.info.show()
 
     def load_tor_info_data(self,window,work_directory):
         size = self.cs.get_size(work_directory)
         information_array = self.fe.get_update_info()
+       # "Version's hash Part II"
+        hash_value = information_array[11].split("=")[1]
         update_pending = self.c_string.update_yes + self.cs.update_pending() if self.cs.update_pending() != None else self.c_string.update_no
-        node ={'Browser name':information_array[7].split("=")[1]+" "+information_array[8]+" "+information_array[9],'Browser version':information_array[4].split("=")[1],"Version's hash":information_array[11].split("=")[1],'Update pending':update_pending,'Previous version':information_array[10].split("=")[1],'Install date':information_array[5].split("=")[1],'Last executed':'"'+self.fe.last_modified_state_file+'"',"Tor's directory":'"'+self.ubication[0]+'"',"Tor's directory size":'"'+size.split('\t')[0]+'"'}
+        node ={'Browser name':information_array[7].split("=")[1]+" "+information_array[8]+" "+information_array[9],'Browser version':information_array[4].split("=")[1],"Version's hash Part I":hash_value[slice(0,len(hash_value)//2)],"Version's hash Part II":hash_value[slice(len(hash_value)//2, len(hash_value))],'Update pending':update_pending,'Previous version':information_array[10].split("=")[1],'Install date':information_array[5].split("=")[1],'Last executed':'"'+self.fe.last_modified_state_file+'"',"Tor's directory":'"'+self.ubication[0]+'"',"Tor's directory size":'"'+size.split('\t')[0]+'"'}
         window.table.setItem(0,0,QtWidgets.QTableWidgetItem(node['Browser name']))
         window.table.setItem(0,1,QtWidgets.QTableWidgetItem(node['Browser version']))
-        window.table.setItem(0,2,QtWidgets.QTableWidgetItem(node["Version's hash"]))
-        window.table.setItem(0,3,QtWidgets.QTableWidgetItem(node['Update pending']))
-        window.table.setItem(0,4,QtWidgets.QTableWidgetItem(node['Previous version']))
-        window.table.setItem(0,5,QtWidgets.QTableWidgetItem(node['Install date']))
-        window.table.setItem(0,6,QtWidgets.QTableWidgetItem(node['Last executed']))
-        window.table.setItem(0,7,QtWidgets.QTableWidgetItem(node["Tor's directory"]))
-        window.table.setItem(0,8,QtWidgets.QTableWidgetItem(node["Tor's directory size"]))
+        window.table.setItem(0,2,QtWidgets.QTableWidgetItem(node["Version's hash Part I"]))
+        window.table.setItem(0,3,QtWidgets.QTableWidgetItem(node["Version's hash Part II"]))
+        window.table.setItem(0,4,QtWidgets.QTableWidgetItem(node['Update pending']))
+        window.table.setItem(0,5,QtWidgets.QTableWidgetItem(node['Previous version']))
+        window.table.setItem(0,6,QtWidgets.QTableWidgetItem(node['Install date']))
+        window.table.setItem(0,7,QtWidgets.QTableWidgetItem(node['Last executed']))
+        window.table.setItem(0,8,QtWidgets.QTableWidgetItem(node["Tor's directory"]))
+        window.table.setItem(0,9,QtWidgets.QTableWidgetItem(node["Tor's directory size"]))
     
     def torrc_info(self):
         work_directory = self.security_copy if(self.copy_done == True) else self.ubication[0]
@@ -110,7 +102,6 @@ class initiate:
 
     def action_exit(self):
         sys.exit()
-
 
 ######## FILE FORENSIC MENU ################
     def manage_file_forensic(self):
@@ -138,6 +129,23 @@ class initiate:
 
     def action_GitHub(self):
         self.wr.open_repository()
+
+    def open_security_copy(self):
+        dir_path = str(QtWidgets.QFileDialog.getExistingDirectory(None,self.c_string.copy_title))
+        if(dir_path!=''):
+            self.security_copy = dir_path+'/tbb'
+            self.copy_done = True
+    
+    def make_security_copy(self):
+        dir_path = str(QtWidgets.QFileDialog.getExistingDirectory(None,self.c_string.copy_title))
+        if(dir_path!=''):
+            self.cs.copy_directory(self.ubication[0],dir_path)
+            self.cs.calculate_hash256(self.ubication[0],dir_path)
+            self.cs.calculate_hashmd5(self.ubication[0],dir_path)
+            self.dialog.close()
+            self.security_copy = dir_path+'/tbb'
+            self.copy_done = True
+
 
 ######## ERROR DIALOG ################ 
     def show_error_dialog(self):
@@ -194,13 +202,6 @@ class initiate:
             self.management.more_info_label.setText(text)
 
     def column_config(self,object):
-        object.table.setColumnWidth(0,160)
-        object.table.setColumnWidth(1,290)
-        object.table.setColumnWidth(2,150)
-        object.table.setColumnWidth(3,50)
-        object.table.setColumnWidth(4,140)
-
-    def row_config(self,object):
         object.table.setColumnWidth(0,160)
         object.table.setColumnWidth(1,290)
         object.table.setColumnWidth(2,150)

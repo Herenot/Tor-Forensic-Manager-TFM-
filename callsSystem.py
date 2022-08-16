@@ -46,8 +46,8 @@ class CallsSystem:
     def get_torrc_file(self,directory,file):
         return subprocess.getoutput([self.find_element(directory,"torrc")])
 
-    def download_ubication(self):
-        return subprocess.getoutput([self.find_element(self.install_ubication,"Downloads")])
+    def download_ubication(self,dir):
+        return subprocess.getoutput([self.find_element(dir,"Downloads")])
 
     def files_downloaded(self):
         directory = subprocess.getoutput([self.find_element(self.install_ubication,"Downloads")])
