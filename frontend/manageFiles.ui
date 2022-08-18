@@ -39,7 +39,117 @@
    <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_2"/>
+   <widget class="QPushButton" name="artifacts_dir">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>500</y>
+      <width>191</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(115, 210, 22);
+border-color: rgb(78, 154, 6);
+color: rgb(3, 57, 5);</string>
+    </property>
+    <property name="text">
+     <string>Open Artifacts dir</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="open_sql_viewer">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>500</y>
+      <width>151</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(115, 210, 22);
+border-color: rgb(78, 154, 6);
+color: rgb(3, 57, 5);</string>
+    </property>
+    <property name="text">
+     <string>SQL Web Viewer</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bookmarks_dir">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>500</y>
+      <width>161</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(115, 210, 22);
+border-color: rgb(78, 154, 6);
+color: rgb(3, 57, 5);</string>
+    </property>
+    <property name="text">
+     <string>Open Bookmarks dir</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bookmarks_viewer">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>500</y>
+      <width>181</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(115, 210, 22);
+border-color: rgb(78, 154, 6);
+color: rgb(3, 57, 5);</string>
+    </property>
+    <property name="text">
+     <string>Bookmark Web viewer</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="artifacts_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>761</width>
+      <height>371</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu Mono</family>
+     </font>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="intro_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>761</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu Mono</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string> text</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

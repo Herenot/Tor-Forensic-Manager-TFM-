@@ -57,6 +57,21 @@ class FileExtractions:
         self.cs.delete_file(data_file)
         return lines
 
+    def get_preferences_info(self,file):
+        data_file = self.c_string.aux_data_file
+        preferences_file = open(file,'r')
+        file_evidence = open(data_file,'w')
+        for line in preferences_file.readlines():
+            started_with = re.findall("^//",line)
+            if not started_with:
+                file_evidence.write(line)
+        preferences_file.close()
+        file_evidence.close()
+        with open(data_file) as f:
+            lines = [line.rstrip() for line in f]
+        self.cs.delete_file(data_file)
+        return lines
+
     
     def get_tor_directory(self):
         data_file = self.c_string.aux_data_file
@@ -73,9 +88,15 @@ class FileExtractions:
             lines = [line.rstrip() for line in f]
         self.cs.delete_file(data_file)
         self.cs.delete_file(self.c_string.aux_elements_find_file)
-
         return lines
 
+    def get_artifacts_directory(self,directory):
+        self.cs.ppal_artifacts_ubication(directory)
+        find_output = open(self.c_string.aux_elements_find_file,'r')
+        lines = find_output.readlines()
+        find_output.close()
+        self.cs.delete_file(self.c_string.aux_elements_find_file)
+        return lines[0].split('\n')[0]
 
     def get_nodes_info(self):
         file_node = subprocess.getoutput([self.cs.find_element(self.cs.get_directory(),"state")])
@@ -102,4 +123,13 @@ class FileExtractions:
         self.last_modified_state_file = lines[len(lines)-3].split(' ')[1] + ' ' + lines[len(lines)-3].split(' ')[2]
         self.cs.delete_file(self.c_string.aux_nodes_file)
         return array_of_nodes
+
+    def get_artifacts_information(self,dir):
+        self.cs.get_artifacts(self.get_artifacts_directory(dir))
+        find_output = open(self.c_string.aux_artifacts_file,'r')
+        lines = find_output.readlines()
+        find_output.close()
+        self.cs.delete_file(self.c_string.aux_artifacts_file)
+        return lines
+
 

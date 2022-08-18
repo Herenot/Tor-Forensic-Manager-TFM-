@@ -6,6 +6,9 @@ class WebRelatedActions:
     def open_sql_viewer(self):
         webbrowser.open('https://inloop.github.io/sqlite-viewer/')
 
+    def open_bookmarks_viewer(self):
+        webbrowser.open('https://www.jeffersonscher.com/ffu/bookbackreader.html')
+
     def open_repository(self):
         webbrowser.open('https://github.com/Herenot/Tor-Forensic-Manager-TFM-')
 

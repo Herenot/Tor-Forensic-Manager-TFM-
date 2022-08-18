@@ -43,14 +43,23 @@ class CallsSystem:
     def get_update_info_location(self):
         return subprocess.getoutput([self.find_element(self.install_ubication,"updates.xml")])
     
-    def get_torrc_file(self,directory,file):
-        return subprocess.getoutput([self.find_element(directory,"torrc")])
+    def get_file(self,directory,file):
+        return subprocess.getoutput([self.find_element(directory,file)])
 
     def download_ubication(self,dir):
-        return subprocess.getoutput([self.find_element(dir,"Downloads")])
+        return subprocess.getoutput([self.find_element(dir,'Downloads')])
+
+    def cache_ubication(self,dir):
+        return subprocess.getoutput([self.find_element(dir,'Caches')])
+
+    def bookmarks_backup_ubication(self,dir):
+        return subprocess.getoutput([self.find_element(dir,'bookmarkbackups')])
+
+    def ppal_artifacts_ubication(self,dir):
+        return subprocess.getoutput([self.find_element_and_store_output(dir,'profile.default')])
 
     def files_downloaded(self):
-        directory = subprocess.getoutput([self.find_element(self.install_ubication,"Downloads")])
+        directory = subprocess.getoutput([self.find_element(self.install_ubication,'Downloads')])
         return subprocess.getoutput('ls -lRah {}'.format(directory))
 
     #Si no devuelve nada, entonces no hay actualización, si devuelve, si la hay
@@ -84,4 +93,10 @@ class CallsSystem:
 
     def get_size(self,file):
          return subprocess.getoutput('du -sh '+file);
+
+    def get_artifacts(self,dir):
+        actual = subprocess.getoutput('pwd');
+        information = subprocess.getoutput('cd {} && ls -lh *sqlite > {}/artifacts.txt'.format(dir,actual));
+        subprocess.getoutput('cd '+actual)
+        return information
         

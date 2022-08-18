@@ -37,9 +37,6 @@
    <iconset>
     <normaloff>../../../../.designer/img/Logo.png</normaloff>../../../../.designer/img/Logo.png</iconset>
   </property>
-  <property name="toolTip">
-   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Show help&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-  </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(255, 255, 255);
 selection-background-color: rgb(243, 243, 243);
@@ -117,7 +114,7 @@ selection-color: rgb(0, 0, 0);</string>
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../../.designer/img/UEM.png</pixmap>
+     <pixmap>../img/UEM.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -164,6 +161,8 @@ selection-color: rgb(0, 0, 0);</string>
     </property>
     <addaction name="actionTor_info"/>
     <addaction name="actionTorrc"/>
+    <addaction name="actionCompatibility"/>
+    <addaction name="actionpreferences"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuFile_Forensic">
@@ -175,7 +174,6 @@ selection-color: rgb(0, 0, 0);</string>
     </property>
     <addaction name="separator"/>
     <addaction name="actionManage_Files_Forensic"/>
-    <addaction name="actionOpen_Web_Viewer"/>
    </widget>
    <widget class="QMenu" name="menuNodes_Info">
     <property name="toolTip">
@@ -195,9 +193,16 @@ selection-color: rgb(0, 0, 0);</string>
     <addaction name="actionMake_security_copy"/>
     <addaction name="actionOpen_security_copy"/>
    </widget>
+   <widget class="QMenu" name="menuIntegrity_and_authority">
+    <property name="title">
+     <string>Integrity and authority</string>
+    </property>
+    <addaction name="actionManage_I_A"/>
+   </widget>
    <addaction name="menuPrincipal"/>
    <addaction name="menuFile_Forensic"/>
    <addaction name="menuNodes_Info"/>
+   <addaction name="menuIntegrity_and_authority"/>
    <addaction name="menuMore"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -345,6 +350,38 @@ selection-color: rgb(0, 0, 0);</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionCompatibility">
+   <property name="text">
+    <string>Compatibility.init File</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu Mono</family>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="actionpreferences">
+   <property name="text">
+    <string>Preferences.js File</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu Mono</family>
+    </font>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionManage_I_A">
+   <property name="text">
+    <string>Manage I&amp;A</string>
    </property>
   </action>
  </widget>
