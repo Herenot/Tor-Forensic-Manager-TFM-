@@ -19,6 +19,7 @@ class initiate:
     c_string = Constant()
     copy_done = False
     security_copy = ''
+    dir_chosen = ''
     ubication = []
     download_ubication = None
     cache_dir = None
@@ -45,6 +46,7 @@ class initiate:
         self.main_window.actionGitHub_Repository.triggered.connect(self.action_GitHub)
         self.main_window.actionMake_security_copy.triggered.connect(self.make_security_copy)
         self.main_window.actionOpen_security_copy.triggered.connect(self.open_security_copy)
+        self.main_window.action_ia.triggered.connect(self.open_manageIA)
         self.main_window.show()
         app.exec()
 
@@ -146,14 +148,14 @@ class initiate:
             work_directory = self.security_copy if(self.copy_done == True) else self.ubication[0]
             self.cs.open_directory(self.cs.bookmarks_backup_ubication(work_directory))
         else:
-            self.show_error_dialog()
+            self.show_error_dialog(self.c_string.error_dialog)
 
     def open_artifacts_dir(self):
         if(self.copy_done):
             work_directory = self.security_copy if(self.copy_done == True) else self.ubication[0]
             self.cs.open_directory(self.fe.get_artifacts_directory(work_directory))
         else:
-            self.show_error_dialog()
+            self.show_error_dialog(self.c_string.error_dialog)
         
     def open_bookmarks_viewer(self):
         self.wr.open_bookmarks_viewer()
@@ -179,6 +181,7 @@ class initiate:
         dir_path = str(QtWidgets.QFileDialog.getExistingDirectory(None,self.c_string.copy_title))
         if(dir_path!=''):
             self.security_copy = dir_path+'/tbb'
+            self.dir_chosen = dir_path
             self.copy_done = True
     
     def make_security_copy(self):
@@ -193,13 +196,27 @@ class initiate:
             self.copy_done = True
             QApplication.restoreOverrideCursor()
 
-
+######## MANAGE IA DIALOG ################ 
+    def open_manageIA(self):
+        self.IA = uic.loadUi(self.c_string.ia_manage_dir)
+        if(self.dir_chosen !=''):
+            find1 = self.cs.get_file(self.dir_chosen, 'hashes256.txt.asc')
+            find2 = self.cs.get_file(self.dir_chosen, 'hashesmd5.txt.asc')   
+            if(find1 == '' or find2 == ''):
+                self.show_error_dialog(self.c_string.not_find_hashes)
+            else:
+                self.IA.manage_IA_info_label.setText(self.c_string.intro_ia)
+                self.IA.SHA256_sign_label.setText(self.get_sign_text('SHA256'))
+                self.IA.MD5_sign_label.setText(self.get_sign_text('MD5'))
+                self.IA.show()
+        else:
+            self.show_error_dialog(self.c_string.error_dialog)
+        
 ######## ERROR DIALOG ################ 
-    def show_error_dialog(self):
+    def show_error_dialog(self,text):
         self.dialog = uic.loadUi(self.c_string.error_dialog_dir)
-        self.dialog.error_label.setText('"'+self.c_string.error_dialog+'"')
+        self.dialog.error_label.setText('"'+text+'"')
         self.dialog.okay_button.clicked.connect(lambda:self.dialog.close())
-        #TODO: OPERACIONES CON MANAGE
         self.dialog.show()
     
 ######## AUXILIAR FUNTIONS ################     
@@ -207,19 +224,19 @@ class initiate:
         if(self.copy_done):
             self.cs.open_directory(self.security_copy)
         else:
-            self.show_error_dialog()
+            self.show_error_dialog(self.c_string.error_dialog)
     
     def show_download_directory(self):
         if(self.copy_done):
              self.cs.open_directory(self.download_ubication)
         else:
-            self.show_error_dialog()
+            self.show_error_dialog(self.c_string.error_dialog)
 
     def show_cachedir_directory(self):
         if(self.copy_done):
             self.cs.open_directory(self.cache_dir)
         else:
-            self.show_error_dialog()
+            self.show_error_dialog(self.c_string.error_dialog)
     
     def load_data(self,window):
         nodes = []
@@ -276,6 +293,11 @@ class initiate:
             text += str(i+1)+'. '+array[i]+'\n'
         self.management.artifacts_label.setText(text)
 
+    def get_sign_text(self,type):
+        file = '/hashes256.txt.asc' if(type == 'SHA256') else '/hashesmd5.txt.asc'  
+        sign_value = self.fe.get_hashes_sign(self.dir_chosen+file)
+        text = sign_value[slice(0,len(sign_value)//6)]+'\n'+sign_value[slice(len(sign_value)//6, 2*len(sign_value)//6)] + '\n' + sign_value[slice(2*len(sign_value)//6,3*len(sign_value)//6)] + '\n' + sign_value[slice(3*len(sign_value)//6,4*len(sign_value)//6)] + '\n' + sign_value[slice(4*len(sign_value)//6,5*len(sign_value)//6)]+ '\n' + sign_value[slice(5*len(sign_value)//6,len(sign_value))]
+        return text
 
 #LAUNCH PROGRAM       
 initiate()

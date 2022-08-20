@@ -163,6 +163,7 @@ selection-color: rgb(0, 0, 0);</string>
     <addaction name="actionTorrc"/>
     <addaction name="actionCompatibility"/>
     <addaction name="actionpreferences"/>
+    <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuFile_Forensic">
@@ -197,7 +198,7 @@ selection-color: rgb(0, 0, 0);</string>
     <property name="title">
      <string>Integrity and authority</string>
     </property>
-    <addaction name="actionManage_I_A"/>
+    <addaction name="action_ia"/>
    </widget>
    <addaction name="menuPrincipal"/>
    <addaction name="menuFile_Forensic"/>
@@ -379,7 +380,7 @@ selection-color: rgb(0, 0, 0);</string>
     <string>Ctrl+P</string>
    </property>
   </action>
-  <action name="actionManage_I_A">
+  <action name="action_ia">
    <property name="text">
     <string>Manage I&amp;A</string>
    </property>
