@@ -198,16 +198,20 @@ class initiate:
 
 ######## MANAGE IA DIALOG ################ 
     def open_manageIA(self):
+       # self.show_not_found_dialog('PRUEBA NO OKAY')
+       # self.show_found_dialog('PRUEBA OKAY')        
         self.IA = uic.loadUi(self.c_string.ia_manage_dir)
         if(self.dir_chosen !=''):
             find1 = self.cs.get_file(self.dir_chosen, 'hashes256.txt.asc')
             find2 = self.cs.get_file(self.dir_chosen, 'hashesmd5.txt.asc')   
             if(find1 == '' or find2 == ''):
-                self.show_error_dialog(self.c_string.not_find_hashes)
+                self.show_error_dialog(self.c_string.not_find_hashes_files)
             else:
                 self.IA.manage_IA_info_label.setText(self.c_string.intro_ia)
                 self.IA.SHA256_sign_label.setText(self.get_sign_text('SHA256'))
                 self.IA.MD5_sign_label.setText(self.get_sign_text('MD5'))
+                self.IA.verify_sha256.clicked.connect(lambda: self.search_hashes('SHA256'))
+                self.IA.verify_MD5.clicked.connect(lambda: self.search_hashes('MD5'))
                 self.IA.show()
         else:
             self.show_error_dialog(self.c_string.error_dialog)
@@ -218,7 +222,20 @@ class initiate:
         self.dialog.error_label.setText('"'+text+'"')
         self.dialog.okay_button.clicked.connect(lambda:self.dialog.close())
         self.dialog.show()
-    
+
+######## HASHES DIALOGS ################ 
+    def show_not_found_dialog(self,text):
+        self.dialog = uic.loadUi(self.c_string.hashes_not_found_dialog_dir)
+        self.dialog.message_label.setText('"'+text+'"')
+        self.dialog.show()
+
+    def show_found_dialog(self,text,dir):
+        self.dialog = uic.loadUi(self.c_string.hashes_found_dialog_dir)
+        self.dialog.message_label.setText('"'+text+'"')
+        print(dir)
+        self.dialog.open_dir.clicked.connect(lambda: self.cs.open_directory(dir))
+        self.dialog.show()
+
 ######## AUXILIAR FUNTIONS ################     
     def open_tor_directory(self):
         if(self.copy_done):
@@ -299,5 +316,21 @@ class initiate:
         text = sign_value[slice(0,len(sign_value)//6)]+'\n'+sign_value[slice(len(sign_value)//6, 2*len(sign_value)//6)] + '\n' + sign_value[slice(2*len(sign_value)//6,3*len(sign_value)//6)] + '\n' + sign_value[slice(3*len(sign_value)//6,4*len(sign_value)//6)] + '\n' + sign_value[slice(4*len(sign_value)//6,5*len(sign_value)//6)]+ '\n' + sign_value[slice(5*len(sign_value)//6,len(sign_value))]
         return text
 
-#LAUNCH PROGRAM       
+    #9a13bcc810c3eac12a8c45362e93edd54443566df171bac1
+    def search_hashes(self,type):
+        file = '/hashes256.txt' if(type == 'SHA256') else '/hashesmd5.txt'  
+        result = self.cs.search_hashes_in_file(self.dir_chosen,self.IA.hash_field.text(),file)
+        if(result == ''):
+            self.show_not_found_dialog('NO Matches found in file:\n{}'.format(file))
+        else:
+            split_array = result.split('/')
+            result = split_array[len(split_array)-1]
+            split_array.pop(0)
+            split_array.pop(len(split_array)-1)
+            path = '/'
+            for i in range(len(split_array)):
+                path += split_array[i]+'/' if(i != (len(split_array)-1)) else split_array[i]
+            self.show_found_dialog('Matches!.File with that hash:\n{}'.format(result),path)
+
+#LAUNCH PROGRAM     
 initiate()

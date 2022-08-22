@@ -143,6 +143,11 @@
       <height>26</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu Mono</family>
+     </font>
+    </property>
    </widget>
    <widget class="QPushButton" name="verify_sha256">
     <property name="geometry">
@@ -152,6 +157,11 @@
       <width>95</width>
       <height>26</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu Mono</family>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(115, 210, 22);
@@ -171,6 +181,11 @@ color: rgb(3, 57, 5);</string>
       <height>26</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu Mono</family>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(115, 210, 22);
 border-color: rgb(78, 154, 6);
@@ -189,6 +204,11 @@ color: rgb(3, 57, 5);</string>
       <height>26</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu Mono</family>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(115, 210, 22);
 border-color: rgb(78, 154, 6);
@@ -206,6 +226,11 @@ color: rgb(3, 57, 5);</string>
       <width>551</width>
       <height>26</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu Mono</family>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(115, 210, 22);

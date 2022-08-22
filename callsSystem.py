@@ -89,14 +89,17 @@ class CallsSystem:
             subprocess.Popen(['xdg-open', path])
             
     def mum_of_ocurrences(self,word,file):
-        return subprocess.getoutput('echo "'+word+'" | wc -l '+file);
+        return subprocess.getoutput('echo "'+word+'" | wc -l '+file)
 
     def get_size(self,file):
-         return subprocess.getoutput('du -sh '+file);
+         return subprocess.getoutput('du -sh '+file)
 
     def get_artifacts(self,dir):
-        actual = subprocess.getoutput('pwd');
-        information = subprocess.getoutput('cd {} && ls -lh *sqlite > {}/artifacts.txt'.format(dir,actual));
+        actual = subprocess.getoutput('pwd')
+        information = subprocess.getoutput('cd {} && ls -lh *sqlite > {}/artifacts.txt'.format(dir,actual))
         subprocess.getoutput('cd '+actual)
         return information
+    
+    def search_hashes_in_file(self,dir,expression,file):
+        return subprocess.getoutput('grep {} {}'.format(expression,dir+file))
         
