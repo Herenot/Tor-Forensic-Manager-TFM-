@@ -131,5 +131,6 @@ class FileExtractions:
         find_output.close()
         self.cs.delete_file(self.c_string.aux_artifacts_file)
         return lines
+    
 
 

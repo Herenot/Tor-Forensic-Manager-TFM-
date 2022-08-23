@@ -384,6 +384,11 @@ selection-color: rgb(0, 0, 0);</string>
    <property name="text">
     <string>Manage I&amp;A</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu Mono</family>
+    </font>
+   </property>
   </action>
  </widget>
  <resources/>

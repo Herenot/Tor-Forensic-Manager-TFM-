@@ -18,15 +18,22 @@ class CallsSystem:
     def find_element_and_store_output(self,directory,file):
         return 'find {} -name {} > ./find_elements.txt'.format(directory,file)
 
-    def calculate_hash256(self,source,destination):
-        self.delete_file(destination+self.hash256_file+".asc")
-        system("find "+ source +"/ -type f -print0  | xargs -0 sha256sum > "+destination+self.hash256_file)
-        system("gpg --clearsign "+destination+self.hash256_file)
+    def calculate_hash256(self,source,destination,type):
+        if(type == 1 ):
+            self.delete_file(destination+self.hash256_file+".asc")
+            system("find "+ source +"/ -type f -print0  | xargs -0 sha256sum > "+destination+self.hash256_file)
+            system("gpg --clearsign "+destination+self.hash256_file)
+        else:
+            system("find "+ source +"/ -type f -print0  | xargs -0 sha256sum > "+destination+'/aux_256.txt')
 
-    def calculate_hashmd5(self,source,destination):
-        self.delete_file(destination+self.hashmd5_file+".asc")
-        system("find "+ source +"/ -type f -print0  | xargs -0 md5sum > "+destination+self.hashmd5_file)
-        system("gpg --clearsign "+destination+self.hashmd5_file)
+
+    def calculate_hashmd5(self,source,destination,type):
+        if(type == 1 ):
+            self.delete_file(destination+self.hashmd5_file+".asc")
+            system("find "+ source +"/ -type f -print0  | xargs -0 md5sum > "+destination+self.hashmd5_file)
+            system("gpg --clearsign "+destination+self.hashmd5_file)
+        else:
+            system("find "+ source +"/ -type f -print0  | xargs -0 md5sum > "+destination+'/aux_md5.txt')
 
     def copy_directory(self,source,destination):
         system("cp -rf "+source+" "+destination)
@@ -102,4 +109,11 @@ class CallsSystem:
     
     def search_hashes_in_file(self,dir,expression,file):
         return subprocess.getoutput('grep {} {}'.format(expression,dir+file))
-        
+    
+    def diff_in_file(self,file_aux,user_file):
+        return subprocess.getoutput('diff {} {}'.format(file_aux,user_file))
+    
+    def write_diff_results(self,result,dir,type):
+        system('mkdir '+ dir +'/diff_results')
+        nick = 'hashes256' if(type == 'SHA256') else 'hashesmd5'
+        subprocess.getoutput('echo {} > {}/diff_results/diff_result_{}'.format(result,dir,nick))

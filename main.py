@@ -189,13 +189,12 @@ class initiate:
         if(dir_path!=''):
             QApplication.setOverrideCursor(Qt.WaitCursor)
             self.cs.copy_directory(self.ubication[0],dir_path)
-            self.cs.calculate_hash256(self.ubication[0],dir_path)
-            self.cs.calculate_hashmd5(self.ubication[0],dir_path)
+            self.cs.calculate_hash256(self.ubication[0],dir_path,1)
+            self.cs.calculate_hashmd5(self.ubication[0],dir_path,1)
             self.dialog.close()
             self.security_copy = dir_path+'/tbb'
             self.copy_done = True
-            QApplication.restoreOverrideCursor()
-
+            QApplication.restoreOverrideCursor() 
 ######## MANAGE IA DIALOG ################ 
     def open_manageIA(self):
        # self.show_not_found_dialog('PRUEBA NO OKAY')
@@ -212,6 +211,8 @@ class initiate:
                 self.IA.MD5_sign_label.setText(self.get_sign_text('MD5'))
                 self.IA.verify_sha256.clicked.connect(lambda: self.search_hashes('SHA256'))
                 self.IA.verify_MD5.clicked.connect(lambda: self.search_hashes('MD5'))
+                self.IA.compare_sha256.clicked.connect(lambda: self.compare_hashes('SHA256'))
+                self.IA.compare_md5.clicked.connect(lambda: self.compare_hashes('MD5'))
                 self.IA.show()
         else:
             self.show_error_dialog(self.c_string.error_dialog)
@@ -232,7 +233,6 @@ class initiate:
     def show_found_dialog(self,text,dir):
         self.dialog = uic.loadUi(self.c_string.hashes_found_dialog_dir)
         self.dialog.message_label.setText('"'+text+'"')
-        print(dir)
         self.dialog.open_dir.clicked.connect(lambda: self.cs.open_directory(dir))
         self.dialog.show()
 
@@ -311,17 +311,17 @@ class initiate:
         self.management.artifacts_label.setText(text)
 
     def get_sign_text(self,type):
-        file = '/hashes256.txt.asc' if(type == 'SHA256') else '/hashesmd5.txt.asc'  
+        file = self.c_string.file_hash256_asc if(type == 'SHA256') else self.c_string.file_hashmd5_asc
         sign_value = self.fe.get_hashes_sign(self.dir_chosen+file)
         text = sign_value[slice(0,len(sign_value)//6)]+'\n'+sign_value[slice(len(sign_value)//6, 2*len(sign_value)//6)] + '\n' + sign_value[slice(2*len(sign_value)//6,3*len(sign_value)//6)] + '\n' + sign_value[slice(3*len(sign_value)//6,4*len(sign_value)//6)] + '\n' + sign_value[slice(4*len(sign_value)//6,5*len(sign_value)//6)]+ '\n' + sign_value[slice(5*len(sign_value)//6,len(sign_value))]
         return text
 
     #9a13bcc810c3eac12a8c45362e93edd54443566df171bac1
     def search_hashes(self,type):
-        file = '/hashes256.txt' if(type == 'SHA256') else '/hashesmd5.txt'  
+        file = self.c_string.file_hash256 if(type == 'SHA256') else self.c_string.file_hashmd5  
         result = self.cs.search_hashes_in_file(self.dir_chosen,self.IA.hash_field.text(),file)
         if(result == ''):
-            self.show_not_found_dialog('NO Matches found in file:\n{}'.format(file))
+            self.show_not_found_dialog(self.c_string.no_matches_text.format(file))
         else:
             split_array = result.split('/')
             result = split_array[len(split_array)-1]
@@ -330,7 +330,29 @@ class initiate:
             path = '/'
             for i in range(len(split_array)):
                 path += split_array[i]+'/' if(i != (len(split_array)-1)) else split_array[i]
-            self.show_found_dialog('Matches!.File with that hash:\n{}'.format(result),path)
+            self.show_found_dialog(self.c_string.matches_found_text.format(result),path)
+
+
+    def compare_hashes(self,type):
+        QApplication.setOverrideCursor(Qt.WaitCursor)
+        file = self.c_string.file_hash256 if(type == 'SHA256') else self.c_string.file_hashmd5
+        aux_file = self.c_string.aux_hash256 if(type == 'SHA256') else self.c_string.aux_hashmd5
+        if(type == 'SHA256'):
+            self.cs.calculate_hash256(self.ubication[0],'.',2)
+        else:
+            self.cs.calculate_hashmd5(self.ubication[0],'.',2)
+        #Comparamos los datos llamando a diff
+        text = self.cs.diff_in_file('.'+aux_file,self.dir_chosen+file) #'/prueba.txt'
+        if(text!=""):
+            self.cs.write_diff_results(self.c_string.explanation_text+text+'"',self.dir_chosen,type)
+        else:
+            self.cs.write_diff_results(self.c_string.same_hashes_text,self.dir_chosen,type)
+        #eliminamos el archivo auxiliar
+        self.cs.delete_file('.'+aux_file)
+        QApplication.restoreOverrideCursor()
+        self.cs.open_directory(self.dir_chosen+self.c_string.diff_dir)
+
+
 
 #LAUNCH PROGRAM     
 initiate()
