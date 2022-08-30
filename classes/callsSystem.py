@@ -1,37 +1,44 @@
 from os import system
 import os
 import subprocess
+from constantStrings import Constant
 # Clase en la que se llevarán a cabo las llamadas al sistema operativo
 # source es la ruta absoluta donde se encuentra el navegador
 # destination es la ruta absoluta donde se quieren almacenar las salidas
 class CallsSystem:
-    install_ubication = '.'
-    hash256_file = "/hashes256.txt"
-    hashmd5_file = "/hashesmd5.txt"
+    __c_string = Constant()
+    __install_ubication = '.'
+    __hash256_file = ''
+    __hashmd5_file = ''
+
+    #Constructor
+    def __init__(self):
+        self.__hash256_file = self.__c_string.file_hash256
+        self.__hashmd5_file = self.__c_string.file_hashmd5
 
     def set_ubication(self,ubication):
-        self.install_ubication = ubication
+        self.__install_ubication = ubication
 
     def where_is_tor(self): #Le pueden pasar is or where
-       return subprocess.getoutput([self.find_element_and_store_output('/',"tbb")])
+       return subprocess.getoutput([self.__find_element_and_store_output('/',"tbb")])
 
-    def find_element_and_store_output(self,directory,file):
+    def __find_element_and_store_output(self,directory,file):
         return 'find {} -name {} > ./find_elements.txt'.format(directory,file)
 
     def calculate_hash256(self,source,destination,type):
         if(type == 1 ):
-            self.delete_file(destination+self.hash256_file+".asc")
-            system("find "+ source +"/ -type f -print0  | xargs -0 sha256sum > "+destination+self.hash256_file)
-            system("gpg --clearsign "+destination+self.hash256_file)
+            self.delete_file(destination+self.__hash256_file+".asc")
+            system("find "+ source +"/ -type f -print0  | xargs -0 sha256sum > "+destination+self.__hash256_file)
+            system("gpg --clearsign "+destination+self.__hash256_file)
         else:
             system("find "+ source +"/ -type f -print0  | xargs -0 sha256sum > "+destination+'/aux_256.txt')
 
 
     def calculate_hashmd5(self,source,destination,type):
         if(type == 1 ):
-            self.delete_file(destination+self.hashmd5_file+".asc")
-            system("find "+ source +"/ -type f -print0  | xargs -0 md5sum > "+destination+self.hashmd5_file)
-            system("gpg --clearsign "+destination+self.hashmd5_file)
+            self.delete_file(destination+self.__hashmd5_file+".asc")
+            system("find "+ source +"/ -type f -print0  | xargs -0 md5sum > "+destination+self.__hashmd5_file)
+            system("gpg --clearsign "+destination+self.__hashmd5_file)
         else:
             system("find "+ source +"/ -type f -print0  | xargs -0 md5sum > "+destination+'/aux_md5.txt')
 
@@ -42,13 +49,13 @@ class CallsSystem:
         system("rm -f "+file)
 
     def get_directory(self):
-        return self.install_ubication
+        return self.__install_ubication
 
     def find_element(self,directory,file):
         return 'find {} -name {}'.format(directory,file)
 
     def get_update_info_location(self):
-        return subprocess.getoutput([self.find_element(self.install_ubication,"updates.xml")])
+        return subprocess.getoutput([self.find_element(self.__install_ubication,"updates.xml")])
     
     def get_file(self,directory,file):
         return subprocess.getoutput([self.find_element(directory,file)])
@@ -63,18 +70,18 @@ class CallsSystem:
         return subprocess.getoutput([self.find_element(dir,'bookmarkbackups')])
 
     def ppal_artifacts_ubication(self,dir):
-        return subprocess.getoutput([self.find_element_and_store_output(dir,'profile.default')])
+        return subprocess.getoutput([self.__find_element_and_store_output(dir,'profile.default')])
 
-    def files_downloaded(self):
-        directory = subprocess.getoutput([self.find_element(self.install_ubication,'Downloads')])
-        return subprocess.getoutput('ls -lRah {}'.format(directory))
+    #def files_downloaded(self):
+     #   directory = subprocess.getoutput([self.find_element(self.__install_ubication,'Downloads')])
+     #   return subprocess.getoutput('ls -lRah {}'.format(directory))
 
     #Si no devuelve nada, entonces no hay actualización, si devuelve, si la hay
     def update_pending(self):
         next_version = None;
-        pending = subprocess.getoutput([self.find_element(self.install_ubication,"active-updates.xml")])
+        pending = subprocess.getoutput([self.find_element(self.__install_ubication,"active-updates.xml")])
         if(pending != ""):
-            version_file = subprocess.getoutput([self.find_element(self.install_ubication,"update.version")])
+            version_file = subprocess.getoutput([self.find_element(self.__install_ubication,"update.version")])
             next_version = subprocess.getoutput('cat {}'.format(version_file))
         return next_version
 
@@ -114,6 +121,6 @@ class CallsSystem:
         return subprocess.getoutput('diff {} {}'.format(file_aux,user_file))
     
     def write_diff_results(self,result,dir,type):
-        system('mkdir '+ dir +'/diff_results')
+        system('mkdir '+ dir +self.__c_string.diff_dir)
         nick = 'hashes256' if(type == 'SHA256') else 'hashesmd5'
         subprocess.getoutput('echo {} > {}/diff_results/diff_result_{}'.format(result,dir,nick))
