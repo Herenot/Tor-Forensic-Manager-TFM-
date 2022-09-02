@@ -21,17 +21,17 @@ class Constant:
     not_find_coincidences = 'Hash found, file is intact'
 
     # Ubicación de las ventanas
-    ppal_ui_dir = './frontend/principal.ui'
-    init_dialog_dir = './frontend/initialDialogBox.ui'
-    info_window_dir = './frontend/infoWindow.ui'
-    info_manage_dir = './frontend/manageFiles.ui'
-    info_nodes_info_dir = './frontend/nodesInfo.ui'
-    info_help_window_dir = './frontend/helpWindow.ui'
-    error_dialog_dir = './frontend/errorDialogBox.ui'
-    hashes_not_found_dialog_dir = './frontend/hashes_dialog.ui'
-    hashes_found_dialog_dir = './frontend/hashes_dialog_ok.ui'
-    ia_manage_dir = './frontend/manageIA.ui'
-    info_readme_dir = './extraFiles/readme.txt'
+    ppal_ui_dir = './../frontend/principal.ui'
+    init_dialog_dir = './../frontend/initialDialogBox.ui'
+    info_window_dir = './../frontend/infoWindow.ui'
+    info_manage_dir = './../frontend/manageFiles.ui'
+    info_nodes_info_dir = './../../frontend/nodesInfo.ui'
+    info_help_window_dir = './../../frontend/helpWindow.ui'
+    error_dialog_dir = './../../frontend/errorDialogBox.ui'
+    hashes_not_found_dialog_dir = './../frontend/hashes_dialog.ui'
+    hashes_found_dialog_dir = './../frontend/hashes_dialog_ok.ui'
+    ia_manage_dir = './../frontend/manageIA.ui'
+    info_readme_dir = './../extraFiles/readme.txt'
     
     # Ubicación archivos auxiliares
     aux_data_file = './data.txt'
