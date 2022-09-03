@@ -350,7 +350,7 @@ selection-color: rgb(0, 0, 0);</string>
     </font>
    </property>
    <property name="shortcut">
-    <string>Ctrl+C</string>
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="actionCompatibility">
@@ -388,6 +388,9 @@ selection-color: rgb(0, 0, 0);</string>
     <font>
      <family>Ubuntu Mono</family>
     </font>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
    </property>
   </action>
  </widget>

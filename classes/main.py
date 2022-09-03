@@ -92,7 +92,7 @@ class initiate:
     
     def __torrc_info(self):
         work_directory = self.__security_copy if(self.__copy_done == True) else self.ubication[0]
-        self.torrc_info = uic.loadUi("./frontend/torrcWindow.ui")
+        self.torrc_info = uic.loadUi(self.__c_string.torrc_file_dir)
         torrc = self.__cs.get_file(work_directory,'torrc')
         array_torrc = self.__fe.get_torrc_info(torrc)
         text = self.__c_string.torrc_user.format(self.__cs.get_user())
@@ -103,7 +103,7 @@ class initiate:
 
     def __compatibility_info(self):
         work_directory = self.__security_copy if(self.__copy_done == True) else self.ubication[0]
-        self.comp_info = uic.loadUi("./frontend/compatibilityWindow.ui")
+        self.comp_info = uic.loadUi(self.__c_string.compatibility_dir)
         info = self.__cs.get_file(work_directory,'compatibility.ini')
         array_info = self.__fe.get_torrc_info(info)
         text = self.__c_string.compatibility_string
@@ -114,7 +114,7 @@ class initiate:
     
     def __preferences_info(self):
         work_directory = self.__security_copy if(self.__copy_done == True) else self.ubication[0]
-        self.pref_info = uic.loadUi("./frontend/prefsWindow.ui")
+        self.pref_info = uic.loadUi(self.__c_string.prefs_string)
         info = self.__cs.get_file(work_directory,'prefs.js')
         array_info = self.__fe.get_preferences_info(info)
         text = self.__c_string.compatibility_string

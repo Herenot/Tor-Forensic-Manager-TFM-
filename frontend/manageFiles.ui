@@ -142,8 +142,8 @@ color: rgb(3, 57, 5);</string>
      <font>
       <family>Ubuntu Mono</family>
       <pointsize>11</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="text">

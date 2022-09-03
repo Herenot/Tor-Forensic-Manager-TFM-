@@ -51,7 +51,7 @@
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item alignment="Qt::AlignTop">
+        <item>
          <widget class="QLabel" name="content_label">
           <property name="minimumSize">
            <size>
