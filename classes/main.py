@@ -191,12 +191,15 @@ class initiate:
             self.__cs.calculate_hashmd5(self.ubication[0],dir_path,1)
             self.dialog.close()
             self.__security_copy = dir_path+'/tbb'
+            self.__dir_chosen = dir_path
             self.__copy_done = True
             QApplication.restoreOverrideCursor() 
 ######## MANAGE IA DIALOG ################ 
     def __open_manageIA(self):   
         self.IA = uic.loadUi(self.__c_string.ia_manage_dir)
-        if(self.__dir_chosen !=''):
+        print(self.__dir_chosen)
+        print(self.__security_copy)        
+        if(self.__security_copy !=''):
             find1 = self.__cs.get_file(self.__dir_chosen, 'hashes256.txt.asc')
             find2 = self.__cs.get_file(self.__dir_chosen, 'hashesmd5.txt.asc')   
             if(find1 == '' or find2 == ''):

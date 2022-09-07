@@ -61,7 +61,14 @@ class FileExtractions:
         for line in preferences_file.readlines():
             started_with = re.findall("^//",line)
             if not started_with:
-                file_evidence.write(line)
+                aux = line.split(', ')[0].split('user_pref(')
+                if(len(aux) == 2):
+                    aux = aux[len(aux)- 1]
+                    aux2 = line.split(', ')[len(line.split(', '))-1].split(");")
+                    aux2 = aux2[len(aux2)-2]
+                    if(aux2.find('"')==-1):
+                        aux2 = '"'+aux2+'"'
+                    file_evidence.write(aux+' = '+aux2+'\n')
         preferences_file.close()
         file_evidence.close()
         with open(data_file) as f:
