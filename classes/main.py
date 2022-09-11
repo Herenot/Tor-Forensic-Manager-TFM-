@@ -196,9 +196,7 @@ class initiate:
             QApplication.restoreOverrideCursor() 
 ######## MANAGE IA DIALOG ################ 
     def __open_manageIA(self):   
-        self.IA = uic.loadUi(self.__c_string.ia_manage_dir)
-        print(self.__dir_chosen)
-        print(self.__security_copy)        
+        self.IA = uic.loadUi(self.__c_string.ia_manage_dir)   
         if(self.__security_copy !=''):
             find1 = self.__cs.get_file(self.__dir_chosen, 'hashes256.txt.asc')
             find2 = self.__cs.get_file(self.__dir_chosen, 'hashesmd5.txt.asc')   
